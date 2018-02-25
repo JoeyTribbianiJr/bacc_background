@@ -3,22 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Bacc_background"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024">
+		mc:Ignorable="d"
+        Title="MainWindow" Height="788" Width="1044" >
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="Style.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 			<Style TargetType="Button" BasedOn="{StaticResource GoodButton}">
-				<Setter Property="MaxHeight" Value="23"></Setter>
-				<!--<Setter Property="Margin" Value="10,0,0,0" />-->
+				<Setter Property="MaxHeight" Value="22"></Setter>
 			</Style>
 			<DataTemplate x:Key="listBoxTemplateInt">
 				<StackPanel Margin="4">
 					<DockPanel>
-						<ComboBox ItemsSource="{Binding Value.Values}" Width="90"
+						<ComboBox ItemsSource="{Binding Value.Values}" Width="120"
 							  SelectedIndex="{Binding Value.SelectedIndex,Mode=TwoWay}" 
 							  ></ComboBox>
 					</DockPanel>
@@ -26,7 +24,7 @@
 			</DataTemplate>
 		</ResourceDictionary>
 	</Window.Resources>
-	<Grid>
+	<Grid >
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="2*"></ColumnDefinition>
 			<ColumnDefinition Width="1*"></ColumnDefinition>
@@ -35,63 +33,62 @@
 			<RowDefinition Height="2*"></RowDefinition>
 			<RowDefinition Height="1*"></RowDefinition>
 		</Grid.RowDefinitions>
-		<Image Name="imgGame" Grid.Column="0" Grid.Row="0"
+		<GroupBox Header="前台监控" Margin="10,0,0,0"
+				  Grid.Column="0" Grid.Row="0">
+			<Image Name="imgGame"
 			   HorizontalAlignment="Stretch"
 			   VerticalAlignment="Stretch"></Image>
+		</GroupBox>
 		<Grid Grid.Column="1" Grid.Row="0">
 			<StackPanel HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch">
 				<GroupBox Header="密码设置" Margin="0,10,10,0">
-					<GroupItem>
-						<StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="290">
-							<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
-								<TextBlock Width="70" HorizontalAlignment="Left" > 开分员密码：</TextBlock>
-								<TextBox Name="txtKaifen" Width="100"
+					<StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="290">
+						<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
+							<TextBlock Width="70" HorizontalAlignment="Left" > 开分员密码：</TextBlock>
+							<TextBox Name="txtKaifen" Width="100"
 									 IsEnabled="False">54321</TextBox>
-							</StackPanel>
-							<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
-								<TextBlock Width="70" HorizontalAlignment="Left" > 管理员密码：</TextBlock>
-								<TextBox Name="txtAdmin" Width="100"
-									 IsEnabled="False">55321</TextBox>
-							</StackPanel>
-							<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
-								<TextBlock Width="70" HorizontalAlignment="Left" > 总经理密码：</TextBlock>
-								<TextBox Name="txtManager" Width="100"
-									 IsEnabled="False">56321</TextBox>
-							</StackPanel>
-							<StackPanel Margin="15,30,0,5" Orientation="Horizontal">
-								<TextBlock Width="70" HorizontalAlignment="Left" > 查账密码：</TextBlock>
-								<TextBox Name="txtChazhang" Width="100"
-									 IsEnabled="False">12345</TextBox>
-							</StackPanel>
-							<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
-								<TextBlock Width="70" HorizontalAlignment="Left" > 查押分密码：</TextBlock>
-								<TextBox Name="txtChayafen" Width="100"
-									 IsEnabled="False">54321</TextBox>
-							</StackPanel>
-							<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
-								<Button Name="btnModiPwd" Width="65" HorizontalAlignment="Left"
-										HorizontalContentAlignment="Center" >修改密码</Button>
-								<CheckBox Margin="15,0,0,0" 
-										  Name="chkClosePwd" Width="100"
-		VerticalContentAlignment="Center"
-									 IsEnabled="False">关闭前台密码</CheckBox>
-							</StackPanel>
 						</StackPanel>
-					</GroupItem>
+						<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
+							<TextBlock Width="70" HorizontalAlignment="Left" > 管理员密码：</TextBlock>
+							<TextBox Name="txtAdmin" Width="100"
+									 IsEnabled="False">55321</TextBox>
+						</StackPanel>
+						<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
+							<TextBlock Width="70" HorizontalAlignment="Left" > 总经理密码：</TextBlock>
+							<TextBox Name="txtManager" Width="100"
+									 IsEnabled="False">56321</TextBox>
+						</StackPanel>
+						<StackPanel Margin="15,30,0,5" Orientation="Horizontal">
+							<TextBlock Width="70" HorizontalAlignment="Left" > 查账密码：</TextBlock>
+							<TextBox Name="txtChazhang" Width="100"
+									 IsEnabled="False">12345</TextBox>
+						</StackPanel>
+						<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
+							<TextBlock Width="70" HorizontalAlignment="Left" > 查押分密码：</TextBlock>
+							<TextBox Name="txtChayafen" Width="100"
+									 IsEnabled="False">54321</TextBox>
+						</StackPanel>
+						<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
+							<Button Name="btnModiPwd" Width="65" HorizontalAlignment="Left"
+										HorizontalContentAlignment="Center" >修改密码</Button>
+							<CheckBox Margin="15,0,0,0" 
+										  Name="chkClosePwd" Width="100"
+											VerticalContentAlignment="Center"
+									 >关闭前台密码</CheckBox>
+						</StackPanel>
+					</StackPanel>
 				</GroupBox>
 				<GroupBox Header="参数设置" Margin="0,0,10,0">
-					<GroupItem HorizontalAlignment="Left">
-						<ListBox Name="lstButton" Margin="0,5,0,0" 
-								Width="290"
+					<ListBox Name="lstButton" Margin="0,5,0,10" 
+								Width="300"
 								ItemTemplate="{StaticResource listBoxTemplateInt}" >
-							<ListBox.Template>
-								<ControlTemplate TargetType="{x:Type ListBox}">
-									<WrapPanel Width="290" Orientation="Horizontal" IsItemsHost="True"/>
-								</ControlTemplate>
-							</ListBox.Template>
-						</ListBox>
-					</GroupItem>
+						<ListBox.Template>
+							<ControlTemplate TargetType="{x:Type ListBox}">
+								<WrapPanel Width="300" Orientation="Horizontal" IsItemsHost="True"/>
+							</ControlTemplate>
+						</ListBox.Template>
+					</ListBox>
 				</GroupBox>
 			</StackPanel>
 		</Grid>
@@ -103,11 +100,11 @@
 					<ColumnDefinition Width="2*"></ColumnDefinition>
 					<ColumnDefinition Width="1*"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
-				<GroupBox Header="前台管理" Grid.Column="0">
+				<GroupBox Header="前台管理" Grid.Column="0" Margin="10,0,0,0">
 					<Grid>
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="1*"></ColumnDefinition>
-							<ColumnDefinition Width="4*"></ColumnDefinition>
+							<!--<ColumnDefinition Width="1*"></ColumnDefinition>-->
+							<ColumnDefinition Width="5*"></ColumnDefinition>
 							<ColumnDefinition Width="1*"></ColumnDefinition>
 						</Grid.ColumnDefinitions>
 						<Grid.RowDefinitions>
@@ -118,23 +115,133 @@
 						<StackPanel Grid.ColumnSpan="3" Orientation="Horizontal" 
 									Height="25">
 							<Label >设置局数:</Label>
-							<TextBox Name="txtRoundNum" MinHeight="20" MinWidth="70"></TextBox>
-							<Button  Click="btnCurBillwayClick" Margin="10,0,0,0">当前露单</Button>
+							<TextBox Name="txtRoundNum" Height="20" MinWidth="70"></TextBox>
+							<Button  Click="btnCurBillwayClick" Margin="10,0,0,0">当前路单</Button>
 							<Button  Name="btnPrintBillway" Click="btnPrintBillway_Click" 
-									 Margin="85,0,0,0">打印露单</Button>
+									 Margin="85,0,0,0">打印路单</Button>
 						</StackPanel>
-							<Button  Name="btnTransmitBillway" 
+						<Button  Name="btnTransmitBillway" 
 								     Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center"
-									 Click="btnTransmitBillway_Click" >传送露单</Button>
+									 Click="btnTransmitBillway_Click" >传送路单</Button>
+						<StackPanel Orientation="Horizontal" Grid.Row="1">
+							<Button Height="150" Name="btnRegenerateBillway"  Margin="10,0,0,0"
+									Style="{StaticResource GreenButton}" 
+									Click="btnRegenerateBillway_Click"
+									Content="重&#x0a;新&#x0a;生&#x0a;成&#x0a;路&#x0a;单">
+							</Button>
+							<Grid  Name="BigWaybill" Margin="10,0,0,0"
+								   Width="286" Height="156">
+								<Grid.RowDefinitions>
+									<RowDefinition />
+									<RowDefinition />
+									<RowDefinition />
+									<RowDefinition />
+									<RowDefinition />
+									<RowDefinition />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+								</Grid.ColumnDefinitions>
+							</Grid>
+						</StackPanel>
 
 						<StackPanel Grid.Column="2" Grid.Row="1">
-							<Button  Name="btnGeneralBillway"
+							<StackPanel.Resources>
+								<Style TargetType="Button" BasedOn="{StaticResource GoodButton}">
+									<Setter Property="Margin" Value="0,14,0,0"></Setter>
+								</Style>
+							</StackPanel.Resources>
+							<Button  Name="btnGeneralBillway" 
+									 Margin="0,9,0,0"
 									HorizontalAlignment="Center"
-									 Click="btnGeneralBillway_Click">生成露单</Button>
+									 Click="btnGeneralBillway_Click">生成路单</Button>
 							<Button  Name="btnImportBillway" 
 									 HorizontalAlignment="Center"
-									 Click="btnImportBillway_Click">导入露单</Button>
+									 Click="btnImportBillway_Click">导入路单</Button>
+							<Button  Name="btnInsertBillway" 
+									 HorizontalAlignment="Center"
+									 Click="btnInsertBillway_Click">插入路单</Button>
+							<Button  Name="btnReplcBillway" 
+									 HorizontalAlignment="Center"
+									 Click="btnReplcBillway_Click">替换路单</Button>
+							<Button  Name="btnSaveBillway" 
+									 HorizontalAlignment="Center"
+									 Click="btnSaveBillway_Click">保存路单</Button>
 						</StackPanel>
+
+						<StackPanel Grid.Row="2" Grid.Column="0" 
+									Orientation="Horizontal"
+									Grid.ColumnSpan="3">
+							<Button Name="Homepage" Click="Homepage_Click" Width="45">首页</Button>
+							<Button Name="Prepage" Click="Prepage_Click" Width="45">上一页</Button>
+							<Button Name="Jumpto" Click="Jumpto_Click" Width="45" Margin="10,0,3,0">跳到</Button>
+							<TextBox Name="txtPageIndex" Width="35" Height="23"></TextBox>
+							<TextBlock VerticalAlignment="Center" Margin="3,0,0,0">页</TextBlock>
+							<Button Name="btnNextpage" Click="btnNextpage_Click" Width="45" Margin="5,0,0,0">下一页</Button>
+							<Button Name="btnLastpage" Click="btnLastpage_Click" Width="45">尾页</Button>
+							<Button Name="btnImportFrontWaybill" Click="btnImportFrontWaybill_Click" 
+									Margin="10,0,0,0"
+									Width="85"  >导入前台路单</Button>
+						</StackPanel>
+					</Grid>
+				</GroupBox>
+
+				<GroupBox Header="强力控制" Grid.Column="1">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="3*"></RowDefinition>
+							<RowDefinition Height="4*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ListView Grid.Row="0" ></ListView>
+						<Grid Grid.Row="1">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="240*"/>
+								<ColumnDefinition Width="163*"/>
+							</Grid.ColumnDefinitions>
+
+						</Grid>
+					</Grid>
+				</GroupBox>
+
+				<GroupBox Header="功能菜单" Grid.Column="2" Grid.Row="1">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="185*"/>
+							<RowDefinition Height="46*"/>
+						</Grid.RowDefinitions>
+						<Grid Grid.Row="0" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="46*"/>
+								<RowDefinition Height="139*"/>
+							</Grid.RowDefinitions>
+							<TextBox Name="txtPwd" Margin="20,10,20,10"></TextBox>
+							<Grid Grid.Row="1" Margin="20,0,20,0">
+								<Grid.RowDefinitions>
+									<RowDefinition />
+									<RowDefinition />
+									<RowDefinition />
+									<RowDefinition />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+								</Grid.ColumnDefinitions>
+							</Grid>
+						</Grid>
+						<Button Grid.Row="1" Margin="20,5,20,5"
+								Name="btnDisconnect" Click="btnDisconnect_Click">断开连接</Button>
 					</Grid>
 				</GroupBox>
 			</Grid>

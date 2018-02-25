@@ -95,6 +95,7 @@ namespace Bacc_background
 			//game_str_setting.Add("single_double", new SettingStrItem() { desc = "单张牌", value = "单张牌", values = new string[] { "单张牌", "两张牌" } });
 		}
 
+		#region 按钮事件
 		private void btnCurBillwayClick(object sender, RoutedEventArgs e)
 		{
 			var bu = sender as Button;
@@ -120,5 +121,61 @@ namespace Bacc_background
 		{
 
 		}
+
+		private void btnInsertBillway_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void btnReplcBillway_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void btnSaveBillway_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void btnRegenerateBillway_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void Homepage_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void Prepage_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void Jumpto_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void btnNextpage_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void btnLastpage_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void btnImportFrontWaybill_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void btnDisconnect_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+		#endregion
 	}
 }

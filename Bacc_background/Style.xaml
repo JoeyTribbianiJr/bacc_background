@@ -10,7 +10,7 @@
 					<Border Name="bdr" CornerRadius="3" Opacity="0.5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
 						<!--可使用ContentPresenter代替-->
 						<!--Foreground的值White可以替换为{TemplateBinding Foreground}-->
-						<Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" Content="{TemplateBinding Content}"/>
+						<Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{TemplateBinding Foreground}" Content="{TemplateBinding Content}"/>
 					</Border>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver" Value="True">
