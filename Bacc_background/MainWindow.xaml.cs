@@ -37,7 +37,6 @@ namespace Bacc_background
 			InitSetting();
 			InitializeComponent();
 			lstButton.ItemsSource = game_setting;
-			//lstButtonInt.ItemsSource = game_setting;
 		}
 		private void InitSetting()
 		{
@@ -177,5 +176,6 @@ namespace Bacc_background
 
 		}
 		#endregion
+
 	}
 }
