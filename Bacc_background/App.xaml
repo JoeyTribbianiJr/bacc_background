@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:Bacc_background"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <local:WayBillBackgroundConverter x:Key="WayBillBackgroundConverter"></local:WayBillBackgroundConverter>
+        <local:WayBillVisibleConverter x:Key="WayBillVisibleConverter"></local:WayBillVisibleConverter>
+        <local:WayBillContentConverter x:Key="WayBillContentConverter"></local:WayBillContentConverter>
+        <local:NextPageButtonEnableConverter x:Key="NextPageButtonEnableConverter"></local:NextPageButtonEnableConverter>
     </Application.Resources>
 </Application>

@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bacc_background", "Bacc_background\Bacc_background.csproj", "{24C887FB-685A-41C1-A498-924BA12374B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{B9FD565D-918C-4EEC-8652-E711E273EA84}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{24C887FB-685A-41C1-A498-924BA12374B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24C887FB-685A-41C1-A498-924BA12374B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24C887FB-685A-41C1-A498-924BA12374B1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9FD565D-918C-4EEC-8652-E711E273EA84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9FD565D-918C-4EEC-8652-E711E273EA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9FD565D-918C-4EEC-8652-E711E273EA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9FD565D-918C-4EEC-8652-E711E273EA84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
