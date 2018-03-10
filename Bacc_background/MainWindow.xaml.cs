@@ -179,18 +179,22 @@ namespace Bacc_background
                 {
                     if (cur_side == (int)Winner.tie || w_i == (int)Winner.tie)
                     {
-                        if (++pre_row > 10)
+                        if (++pre_row > 9)
                         {
                             pre_row = 0;
                             pre_col++;
                         }
+                        if(w_i != (int)Winner.tie)
+                        {
+
                         cur_side = w_i;
+                        }
                     }
                     else
                     {
                         if (w_i == cur_side)
                         {
-                            if (++pre_row > 10)
+                            if (++pre_row > 9)
                             {
                                 pre_row = 0;
                                 pre_col++;
@@ -208,7 +212,7 @@ namespace Bacc_background
                 {
                     if (w_i == (int)Winner.tie || w_i == w_pre)
                     {
-                        if (++pre_row > 10)
+                        if (++pre_row > 9)
                         {
                             pre_row = 0;
                             pre_col++;

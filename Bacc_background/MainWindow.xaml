@@ -298,9 +298,9 @@
                                 <RowDefinition />
                                 <RowDefinition />
                                 <RowDefinition />
-                                <RowDefinition />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                                 <ColumnDefinition />
