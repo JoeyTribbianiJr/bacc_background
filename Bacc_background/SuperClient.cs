@@ -13,7 +13,7 @@ namespace Bacc_background
         //public override int ReceiveBufferSize { get => base.ReceiveBufferSize; set => base.ReceiveBufferSize = value; }
         public SuperClient()
         {
-            ReceiveBufferSize = 1024 * 2048;
+            ReceiveBufferSize = 1024 * 484;
             // 连接断开事件
             Closed += Client_Closed;
             // 收到服务器数据事件

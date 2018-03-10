@@ -241,6 +241,20 @@
                 <Binding Path="." Converter="{StaticResource WayBillVisibleConverter}" />
             </Setter.Value>
         </Setter>
+<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     <!--大路单按钮样式-->
     <Style x:Key="BigWaybillButton" TargetType="Button">

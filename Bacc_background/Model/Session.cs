@@ -26,6 +26,13 @@ namespace Bacc_front
             var rounds = new ObservableCollection<Round>();
             for (int i = 0; i < rounds_num; i++)
             {
+                var round = CreateOneRound();
+                rounds.Add(round);
+            }
+            return rounds;
+        }
+        private static Round CreateOneRound()
+        {
                 var singleDouble = Setting.Instance.GetStrSetting("single_double");
 
                 List<Card>[] hand_card = new List<Card>[2]; 
@@ -38,10 +45,18 @@ namespace Bacc_front
                     hand_card =  Desk.Instance.DealTwoCard();
                 }
 
-                var round = new Round(hand_card, Desk.Instance.GetWinner(hand_card));
-                rounds.Add(round);
+                return  new Round(hand_card, Desk.Instance.GetWinner(hand_card));
+        }
+        public static Round CreateRoundByWinner(BetSide side)
+        {
+            while (true)
+            {
+                var round = CreateOneRound();
+                if(round.Winner.Item1 == side)
+                {
+                    return round;
+                }
             }
-            return rounds;
         }
 
         private DateTime startTime;
