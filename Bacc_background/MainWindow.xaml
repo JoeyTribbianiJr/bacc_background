@@ -7,6 +7,7 @@
 		mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="788" Width="1044" >
+        <!--Title="MainWindow" Height="1172" Width="1556" >-->
 	<Window.Resources>
 			<ResourceDictionary Source="Style.xaml" >
 		</ResourceDictionary>
@@ -22,7 +23,275 @@
 		</Grid.RowDefinitions>
 		<GroupBox Header="前台监控" Margin="10,0,0,0"
 				  Grid.Column="0" Grid.Row="0">
-			<!--<StackPanel>
+            <!--<Viewbox Stretch="fill">
+                <Canvas x:Name="Casino" Height="768" Width="1024">
+                    <Canvas.Background>
+                        <ImageBrush ImageSource="Img/desk.bmp" />
+                    </Canvas.Background>
+                    <TextBlock x:Name="txtCountDown"  FontSize="40" FontWeight="UltraBold" Foreground="Green" Text="{Binding CountDown}" Canvas.Left="10" Canvas.Top="10" ></TextBlock>
+                    <TextBlock Name="txtState" FontSize="30" Foreground="Red" Text="{Binding StateText}" Canvas.Left="10" Canvas.Top="61" ></TextBlock>
+
+                    <Border Width="200" Height="80" 
+                        BorderThickness="2"
+                        Name="bdSign"
+                        CornerRadius="3"
+                        Canvas.Left="409" Canvas.Top="348">
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Offset="0" Color="#A5A5A5" />
+                                <GradientStop Offset="1" Color="#4B4B4B" />
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="0" Color="#DEB40A" />
+                                <GradientStop Offset="0.4" Color="White" />
+                                <GradientStop Offset="0.7" Color="#DEB40A" />
+                                <GradientStop Offset="1" Color="White" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <StackPanel Orientation="Vertical" >
+                            <StackPanel Margin="30,3,0,0" Orientation="Horizontal">
+                                <Label FontFamily="楷体" FontWeight="Heavy">全台最高限红</Label>
+                                <TextBlock Name="txtAllLimit" Width="90" Text="{Binding AllMostLimit}" FontSize="14" VerticalAlignment="Center" FontWeight="Bold"  Foreground="Red" ></TextBlock>
+                            </StackPanel>
+                            <StackPanel Width="116" Margin="30,0,0,0" Orientation="Horizontal" >
+                                <Label FontFamily="楷体" FontWeight="Heavy" HorizontalAlignment="Right">最低投注</Label>
+                                <TextBlock Name="txtLeastBet" Width="90" HorizontalAlignment="Right" Text="{Binding LeastBet}" FontSize="14" VerticalAlignment="Center" FontWeight="Bold"  Foreground="Red" ></TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="44,0,0,0" Orientation="Horizontal">
+                                <Label FontFamily="楷体" FontWeight="Heavy">和最高限红</Label>
+                                <TextBlock Name="txtTieMost" Width="90" 
+                                       Text="{Binding TieMostBet}" FontSize="14"
+                                       VerticalAlignment="Center"
+                                       FontWeight="Bold"  Foreground="Red" ></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border  Width="351" Height="85" Canvas.Left="665"
+                         BorderThickness="2" CornerRadius="6" Padding="5">
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="0" Color="LightBlue" />
+                                <GradientStop Offset="0.3" Color="LightBlue" />
+                                <GradientStop Offset="0.89" Color="LightBlue" />
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+                        <Border.Background>
+                            <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1" Opacity="0.2">
+                                <GradientStop Offset="0" Color="LightBlue" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid Name="grdFrontSmallWaybill" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                --><!--<RowDefinition />--><!--
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Border>
+                    <Label FontSize="22" Foreground="Red" Canvas.Left="444" Canvas.Top="589">第</Label>
+                    <TextBlock Name="txtSessionIndex" FontSize="22" Foreground="Red" Text="{Binding _sessionStrIndex}" TextAlignment="Center" Width="60" Canvas.Left="487" Canvas.Top="594" ></TextBlock>
+                    <Label FontSize="22" Foreground="Red" Canvas.Left="555" Canvas.Top="589">局</Label>
+                    <Label FontSize="18" Foreground="Red" Canvas.Left="469" Canvas.Top="645">第</Label>
+                    <TextBlock Name="txtRoundIndex" FontSize="22" Foreground="Red" Text="{Binding _roundStrIndex}" TextAlignment="Center" Width="40" Canvas.Left="497" Canvas.Top="645" RenderTransformOrigin="0.521,0.29" ></TextBlock>
+                    <Label FontSize="18" Foreground="Red" Canvas.Left="536" Canvas.Top="645">场</Label>
+
+                    <Canvas Name="spPlayers" >
+                        <Button DataContext="{Binding Players[0].Balance}" Canvas.Left="291" Canvas.Top="589" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[1].Balance}" Canvas.Left="167" Canvas.Top="586" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[2].Balance}" Canvas.Left="58" Canvas.Top="525" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[3].Balance}" Canvas.Left="19" Canvas.Top="399" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[4].Balance}" Canvas.Left="58" Canvas.Top="286" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[5].Balance}" Canvas.Left="167" Canvas.Top="230" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[6].Balance}" Canvas.Left="268" Canvas.Top="227" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[7].Balance}" Canvas.Left="683" Canvas.Top="227" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[8].Balance}" Canvas.Left="789" Canvas.Top="225" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[9].Balance}" Canvas.Left="888" Canvas.Top="281" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[10].Balance}" Canvas.Left="938" Canvas.Top="393" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[11].Balance}" Canvas.Left="907" Canvas.Top="516" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[12].Balance}" Canvas.Left="789" Canvas.Top="581" Style="{StaticResource ChipButton}" />
+                        <Button DataContext="{Binding Players[13].Balance}" Canvas.Left="663" Canvas.Top="590" Style="{StaticResource ChipButton}" />
+
+                        <Button DataContext="{Binding Players[7].BetScoreOnTie}" Canvas.Left="655" Canvas.Top="313" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[7].BetScoreOnBank}" Canvas.Left="704" Canvas.Top="313" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[7].BetScoreOnPlayer}" Canvas.Left="758" Canvas.Top="313" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[8].BetScoreOnTie}" Canvas.Left="655" Canvas.Top="350" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[8].BetScoreOnBank}" Canvas.Left="704" Canvas.Top="350" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[8].BetScoreOnPlayer}" Canvas.Left="758" Canvas.Top="350" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[9].BetScoreOnTie}" Canvas.Left="655" Canvas.Top="387" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[9].BetScoreOnBank}" Canvas.Left="704" Canvas.Top="387" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[9].BetScoreOnPlayer}" Canvas.Left="758" Canvas.Top="387" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[10].BetScoreOnTie}" Canvas.Left="655" Canvas.Top="424" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[10].BetScoreOnBank}" Canvas.Left="704" Canvas.Top="424" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[10].BetScoreOnPlayer}" Canvas.Left="758" Canvas.Top="424" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[11].BetScoreOnTie}" Canvas.Left="655" Canvas.Top="461" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[11].BetScoreOnBank}" Canvas.Left="704" Canvas.Top="461" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[11].BetScoreOnPlayer}" Canvas.Left="758" Canvas.Top="461" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[12].BetScoreOnTie}" Canvas.Left="655" Canvas.Top="499" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[12].BetScoreOnBank}" Canvas.Left="704" Canvas.Top="499" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[12].BetScoreOnPlayer}" Canvas.Left="758" Canvas.Top="499" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[13].BetScoreOnTie}" Canvas.Left="655" Canvas.Top="537" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[13].BetScoreOnBank}" Canvas.Left="704" Canvas.Top="537" Style="{StaticResource BetChipButton}" />
+                        <Button DataContext="{Binding Players[13].BetScoreOnPlayer}" Canvas.Left="758" Canvas.Top="537" Style="{StaticResource BetChipButton}" />
+
+
+
+                        <Button DataContext="{Binding Players[0].BetScoreOnPlayer}" Canvas.Left="226" Canvas.Top="540" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[0].BetScoreOnBank}" Canvas.Left="278" Canvas.Top="540" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[0].BetScoreOnTie}" Canvas.Left="329" Canvas.Top="540" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[1].BetScoreOnPlayer}" Canvas.Left="226" Canvas.Top="504" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[1].BetScoreOnBank}" Canvas.Left="278" Canvas.Top="504" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[1].BetScoreOnTie}" Canvas.Left="329" Canvas.Top="504" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[2].BetScoreOnPlayer}" Canvas.Left="226" Canvas.Top="470" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[2].BetScoreOnBank}" Canvas.Left="278" Canvas.Top="470" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[2].BetScoreOnTie}" Canvas.Left="329" Canvas.Top="470" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[3].BetScoreOnPlayer}" Canvas.Left="226" Canvas.Top="431" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[3].BetScoreOnBank}" Canvas.Left="278" Canvas.Top="431" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[3].BetScoreOnTie}" Canvas.Left="329" Canvas.Top="431" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[4].BetScoreOnPlayer}" Canvas.Left="226" Canvas.Top="393" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[4].BetScoreOnBank}" Canvas.Left="278" Canvas.Top="393" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[4].BetScoreOnTie}" Canvas.Left="329" Canvas.Top="393" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[5].BetScoreOnPlayer}" Canvas.Left="226" Canvas.Top="355" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[5].BetScoreOnBank}" Canvas.Left="278" Canvas.Top="355" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[5].BetScoreOnTie}" Canvas.Left="329" Canvas.Top="355" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[6].BetScoreOnPlayer}" Canvas.Left="226" Canvas.Top="316" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[6].BetScoreOnBank}" Canvas.Left="278" Canvas.Top="316" Style="{StaticResource BetChipButton}" Width="38" />
+                        <Button DataContext="{Binding Players[6].BetScoreOnTie}" Canvas.Left="329" Canvas.Top="316" Style="{StaticResource BetChipButton}" Width="38" />
+                    </Canvas>
+                    <Grid  x:Name="grdBigWaybill" 
+								   Width="242" Height="132" Canvas.Left="390" Canvas.Top="442">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+
+                    --><!--<Button Style="{StaticResource CardButton1}" Canvas.Left="826" Canvas.Top="679" ></Button>
+                <Button Style="{StaticResource CardButton1}" Canvas.Left="856" Canvas.Top="679" ></Button>
+                <Button Style="{StaticResource CardButton1}" Canvas.Left="444" Canvas.Top="319" ></Button>-->
+                    <!--<Image gif:ImageBehavior.AnimatedSource="Gif/b_3.gif" Canvas.Left="446" Canvas.Top="702"></Image>-->
+                    <!--<Image gif:ImageBehavior.AnimatedSource="Gif/flag.gif" Canvas.Left="779" Canvas.Top="75"></Image>-->
+                    <!--<Image gif:ImageBehavior.AnimatedSource="Gif/flag.gif" Canvas.Left="779" Canvas.Top="75"></Image>-->
+                    <!--<Image gif:ImageBehavior.AnimatedSource="Gif/fire.gif" gif:ImageBehavior.RepeatBehavior="Forever"  Canvas.Left="111"/>--><!--
+                    <Border  Width="180"  Opacity="0.8" Name="bdBankerState"
+                        CornerRadius="5" BorderThickness="2"
+					        Height="56" Canvas.Left="238" Canvas.Top="712">
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Offset="0" Color="White" />
+                                <GradientStop Offset="1" Color="Gray" />
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="0" Color="White" />
+                                <GradientStop Offset="0.2" Color="Red" />
+                                <GradientStop Offset="0.7" Color="Red" />
+                                <GradientStop Offset="1" Color="White" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock FontSize="24" TextWrapping="Wrap" FontWeight="UltraBold" Foreground="White"  Name="txtBanker"
+                               TextAlignment="Center" Text="{Binding BankerStateText}"
+                               VerticalAlignment="Center"
+                               ></TextBlock>
+                    </Border>
+                    <Border Width="180" Name="bdPlayerState"
+                           VerticalAlignment="Stretch" BorderThickness="2"
+                           CornerRadius="5" Opacity="0.8"
+    					  Height="56" Canvas.Left="603" Canvas.Top="712">
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Offset="0" Color="White" />
+                                <GradientStop Offset="1" Color="Gray" />
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                                <GradientStop Offset="0" Color="White" />
+                                <GradientStop Offset="0.2" Color="Blue" />
+                                <GradientStop Offset="0.7" Color="Blue" />
+                                <GradientStop Offset="1" Color="White" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock  FontSize="24" TextWrapping="Wrap" FontWeight="UltraBold" Foreground="White" 
+                                Name="txtPlayer"
+                                TextAlignment="Center" Text="{Binding PlayerStateText}"
+                                VerticalAlignment="Center"
+                        ></TextBlock>
+                    </Border>
+                    
+                </Canvas>
+            </Viewbox>-->
+            <!--<StackPanel>
 				
 				<Ellipse Height="50" Width="100">
 				<Ellipse.Fill>
@@ -141,7 +410,7 @@
 							<TextBox Name="txtManager" Width="100"
 									 IsEnabled="False">56321</TextBox>
 						</StackPanel>
-						<StackPanel Margin="15,30,0,5" Orientation="Horizontal">
+						<StackPanel Margin="15,10,0,5" Orientation="Horizontal">
 							<TextBlock Width="70" HorizontalAlignment="Left" > 查账密码：</TextBlock>
 							<TextBox Name="txtChazhang" Width="100"
 									 IsEnabled="False">12345</TextBox>
@@ -161,17 +430,19 @@
 						</StackPanel>
 					</StackPanel>
 				</GroupBox>
-				<GroupBox Header="参数设置" Margin="0,0,10,0">
-					<ListBox Name="lstButton" Margin="0,5,0,10" 
-								Width="300"
+				<GroupBox Header="参数设置" Margin="0,0,10,0" Height="300">
+                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                        <ListBox Name="lstButton" Margin="0,5,0,10" 
+								Width="300" ItemsSource="{Binding game_setting}"
 								ItemTemplate="{StaticResource listBoxTemplateInt}" >
-						<ListBox.Template>
-							<ControlTemplate TargetType="{x:Type ListBox}">
-								<WrapPanel Width="300" Orientation="Horizontal" IsItemsHost="True"/>
-							</ControlTemplate>
-						</ListBox.Template>
-					</ListBox>
-				</GroupBox>
+                            <ListBox.Template>
+                                <ControlTemplate TargetType="{x:Type ListBox}">
+                                    <WrapPanel Width="300" Orientation="Horizontal" IsItemsHost="True"/>
+                                </ControlTemplate>
+                            </ListBox.Template>
+                        </ListBox>
+                    </ScrollViewer>
+                </GroupBox>
 			</StackPanel>
 		</Grid>
 		<Grid Grid.Column="0" Grid.ColumnSpan="2"
@@ -207,7 +478,7 @@
 									 Click="btnTransmitBillway_Click" >传送路单</Button>
 						<StackPanel Orientation="Horizontal" Grid.Row="1">
 							<Button Height="150" Name="btnRegenerateBillway"  Margin="8,0,0,0"
-									Style="{StaticResource GreenButton}" 
+									Style="{StaticResource GreenButton}" FontSize="12"
 									Click="btnRegenerateBillway_Click"
 									Content="重&#x0a;新&#x0a;生&#x0a;成&#x0a;本&#x0a;局&#x0a;路&#x0a;单">
 							</Button>
@@ -252,7 +523,7 @@
 							<Button  Name="btnImportBillway" 
 									 HorizontalAlignment="Center"
 									 Click="btnImportBillway_Click">导入路单</Button>
-							<Button  Name="btnInsertBillway" 
+							<Button  Name="btnInsertBillway" IsEnabled="False"
 									 HorizontalAlignment="Center"
 									 Click="btnInsertBillway_Click">插入路单</Button>
 							<Button  Name="btnReplcBillway" 
@@ -355,7 +626,7 @@
 				</GroupBox>
 
 				<GroupBox Header="功能菜单" Grid.Column="2" Grid.Row="1">
-					<Grid>
+					<Grid Name="grdFrontBet">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="175*"/>
 							<RowDefinition Height="46*"/>
@@ -366,7 +637,7 @@
 								<RowDefinition Height="139*"/>
 							</Grid.RowDefinitions>
 							<TextBox Name="txtPwd" Margin="20,5,20,5"></TextBox>
-							<Grid Grid.Row="1" Margin="20,0,20,0">
+							<!--<Grid Grid.Row="1" Margin="20,0,20,0">
 								<Grid.RowDefinitions>
 									<RowDefinition />
 									<RowDefinition />
@@ -379,7 +650,49 @@
 									<ColumnDefinition />
 									<ColumnDefinition />
 								</Grid.ColumnDefinitions>
-							</Grid>
+							</Grid>-->
+                            <Grid Grid.Row="1" Margin="20,0,20,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel >
+                                    <TextBlock Foreground="Red">庄总押:</TextBlock>
+                                    <TextBox Foreground="Red" IsEnabled="False" Text="{Binding DeskBanker}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Foreground="Green">和总押:</TextBlock>
+                                    <TextBox Foreground="Green" IsEnabled="False" Text="{Binding DeskTie}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Foreground="Blue">闲总押:</TextBlock>
+                                    <TextBox Foreground="Blue" IsEnabled="False" Text="{Binding DeskPlayer}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="0">
+                                    <TextBlock >庄闲差值:</TextBlock>
+                                    <TextBox IsEnabled="False" Text="{Binding Differ}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="1">
+                                    <TextBlock >本场利润:</TextBlock>
+                                    <TextBox IsEnabled="False" Text="{Binding Profit}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="2">
+                                    <TextBlock >押分最多:</TextBlock>
+                                    <TextBox IsEnabled="False" Text="{Binding MostPlayer}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Grid.Column="0">
+                                    <TextBlock >桌面余分:</TextBlock>
+                                    <TextBox IsEnabled="False" Text="{Binding DeskScore}"></TextBox>
+                                </StackPanel>
+                                <Button Background="MediumSeaGreen" Grid.Row="2"  Grid.Column="2"
+                                        Name="btnBetRecord" Click="btnBetRecord_Click">押分记录</Button>
+                            </Grid> 
 						</Grid>
 
                         <StackPanel Orientation="Vertical" Grid.Row="1">

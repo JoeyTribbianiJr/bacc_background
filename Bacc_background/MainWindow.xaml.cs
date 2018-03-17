@@ -18,6 +18,9 @@ using Newtonsoft.Json;
 using System.IO.Compression;
 using Bacc_front;
 using System.Windows.Media;
+using Microsoft.Win32;
+using WsUtils;
+using System.Linq;
 
 namespace Bacc_background
 {
@@ -34,6 +37,40 @@ namespace Bacc_background
         public IPAddress host_ip;
         public SuperClient SSClient;
         #endregion
+        public BetScoreRecord FrontRecord { get; set; }
+        /// <summary>
+        /// 倒计时器
+        /// </summary>
+        public int CountDown { get; set; }
+        /// <summary>
+        /// 状态显示器
+        /// </summary>
+        public string StateText { get; set; }
+        public string BankerStateText { get; set; }
+        public string PlayerStateText { get; set; }
+        /// <summary>
+        /// 轮次计数器
+        /// </summary>
+        public int RoundIndex { get; set; }
+        public string _roundStrIndex { get { return (RoundIndex + 1).ToString(); } }
+        public Round CurrentRound { get { return LocalSessions[SessionIndex].RoundsOfSession[RoundIndex]; } }
+        /// <summary>
+        /// 局数计数器
+        /// </summary>
+        public int SessionIndex { get; set; }
+
+        public int DeskBanker { get; set; }
+        public int DeskTie { get; set; }
+        public int Differ { get; set; }
+        public int Profit { get; set; }
+        public int MostPlayer { get; set; }
+        public int DeskScore { get; set; }
+        public int DeskPlayer { get; set; }
+
+        public string _sessionStrIndex { get { return (SessionIndex + 1).ToString(); } }
+        public ObservableCollection<WhoWin> FrontWaybill { get; set; }
+        public Session FrontCurrentSession { get; set; }
+
         public ObservableCollection<WhoWin> Waybill { get; set; }
         public ObservableCollection<Session> LocalSessions { get; set; }
         public Session CurrentSession
@@ -47,24 +84,34 @@ namespace Bacc_background
         public int LocalSessionIndex { get; set; }
         public int localSessionStrIndex { get { return (LocalSessionIndex + 1); } }
 
+        public int AllMostLimit { get; set; }
+        public int LeastBet { get; set; }
+        public int TieMostBet { get; set; }
+
         private List<Button> sm_waybill_btns = new List<Button>();
         private int LocalRoundNum;
 
         public Dictionary<string, SettingItem> app_setting = new Dictionary<string, SettingItem>();
         public Dictionary<string, SettingItem> game_setting = new Dictionary<string, SettingItem>();
+        public BackRecord FrontMessage = new BackRecord();
+
+        public ObservableCollection<Player> Players { get; set; }
 
         public static MainWindow Instance { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
             Instance = this;
 
-
+            Players = new ObservableCollection<Player>();
             LocalSessions = new ObservableCollection<Bacc_front.Session>();
             Waybill = new ObservableCollection<WhoWin>();
             txtRoundNum.Text = 1000.ToString();
 
             spPageButtons.DataContext = this;
+            grdFrontBet.DataContext = this;
+            lstButton.DataContext = Setting.Instance;
 
             LocalRoundNum = Setting.Instance.GetIntSetting("round_num_per_session");
             InitWaybillBindingForLocal();
@@ -179,22 +226,22 @@ namespace Bacc_background
                 {
                     if (cur_side == (int)Winner.tie || w_i == (int)Winner.tie)
                     {
-                        if (++pre_row > 9)
+                        if (++pre_row >= 9)
                         {
                             pre_row = 0;
                             pre_col++;
                         }
-                        if(w_i != (int)Winner.tie)
+                        if (w_i != (int)Winner.tie)
                         {
 
-                        cur_side = w_i;
+                            cur_side = w_i;
                         }
                     }
                     else
                     {
                         if (w_i == cur_side)
                         {
-                            if (++pre_row > 9)
+                            if (++pre_row >= 9)
                             {
                                 pre_row = 0;
                                 pre_col++;
@@ -212,7 +259,7 @@ namespace Bacc_background
                 {
                     if (w_i == (int)Winner.tie || w_i == w_pre)
                     {
-                        if (++pre_row > 9)
+                        if (++pre_row >= 9)
                         {
                             pre_row = 0;
                             pre_col++;
@@ -263,6 +310,14 @@ namespace Bacc_background
         #region 按钮事件
         private void btnCurBillwayClick(object sender, RoutedEventArgs e)
         {
+            if (FrontCurrentSession != null)
+            {
+                SetWaybillFromSession(FrontCurrentSession);
+            }
+            else
+            {
+                MessageBox.Show("请先连接前台");
+            }
         }
 
         private void btnPrintBillway_Click(object sender, RoutedEventArgs e)
@@ -272,7 +327,7 @@ namespace Bacc_background
 
         private void btnTransmitBillway_Click(object sender, RoutedEventArgs e)
         {
-
+            SSClient.SendCommand(RemoteCommand.ImportBack, JsonConvert.SerializeObject(LocalSessions));
         }
 
         private void btnGeneralBillway_Click(object sender, RoutedEventArgs e)
@@ -301,7 +356,21 @@ namespace Bacc_background
 
         private void btnImportBillway_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog op = new Microsoft.Win32.OpenFileDialog();
+            if (op.ShowDialog() == true)
+            {
+                try
+                {
+                    var file = op.FileName;
+                    var content = new FileUtils().ReadFileFromAbsolute(file);
+                    var sessions = JsonConvert.DeserializeObject<ObservableCollection<Session>>(content);
+                    LocalSessions = sessions;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         private void btnInsertBillway_Click(object sender, RoutedEventArgs e)
@@ -311,12 +380,25 @@ namespace Bacc_background
 
         private void btnReplcBillway_Click(object sender, RoutedEventArgs e)
         {
-
+            SSClient.SendCommand(RemoteCommand.ReplaceWaybill, JsonConvert.SerializeObject(CurrentSession));
         }
 
         private void btnSaveBillway_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog op = new OpenFileDialog();
+            if (op.ShowDialog() == true)
+            {
+                try
+                {
+                    var file = op.FileName;
+                    var sessions = JsonConvert.SerializeObject(LocalSessions);
+                    new FileUtils().WriteFileFromAbsolute(file, sessions, true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         private void btnRegenerateBillway_Click(object sender, RoutedEventArgs e)
@@ -382,7 +464,6 @@ namespace Bacc_background
         {
             try
             {
-
                 host_ip = IPAddress.Parse(txtServerIP.Text);
                 SSClient.Connect(host_ip, port);
                 btnDisconnect.Visibility = Visibility.Visible;
@@ -399,27 +480,106 @@ namespace Bacc_background
         #region SuperSocket监听
         void Client_DataReceived(object sender, DataEventArgs e)
         {
-            string msg_type = Encoding.Default.GetString(e.Data, 0, 2);
+            string msg_type = Encoding.UTF8.GetString(e.Data, 0, 2);
+            if (!Enum.TryParse(msg_type, out RemoteCommand rest))
+            {
+                return;
+            }
             int length = BitConverter.ToInt32(e.Data, 2);
 
             byte[] data = new byte[e.Length - 6];
             Buffer.BlockCopy(e.Data, 6, data, 0, e.Length - 6);
 
-            if (!Enum.TryParse(msg_type, out RemoteCommand rest))
-            {
-                return;
-            }
+
             switch (rest)
             {
                 case RemoteCommand.Image:
                     SetImage(length, data);
                     break;
+                case RemoteCommand.SendFrontData:
+                    SetFront(length,data);
+                    break;
                 case RemoteCommand.ImportFront:
                     ImportFront(data);
+                    break;
+                case RemoteCommand.SendFrontSetting:
+                    SetFrontSetting(length,data);
+                    break;
+                case RemoteCommand.ImportBackFail:
+                    MessageBox.Show("传送露单失败");
+                    break;
+                case RemoteCommand.ImportBackOK:
+                    MessageBox.Show("传送路单成功");
                     break;
                 default:
                     //MessageBox.Show(msg_type);
                     break;
+            }
+        }
+
+        private void SetFrontSetting(int len,byte[] data)
+        {
+            try
+            {
+                var data_str = Encoding.UTF8.GetString(data, 0, len);
+                //var hehe = data_str.Substring(0, data_str.Length - 4);
+                data_str = data_str.TrimEnd(new char[] { '\n', '\r' });
+                var setting = JsonConvert.DeserializeObject<Dictionary<string, SettingItem>>(data_str);
+                Setting.Instance.game_setting = setting;
+
+                MainWindow.Instance.Dispatcher.Invoke(new Action(() => { lstButton.ItemsSource = setting; }));
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+#endif
+            }
+        }
+
+        void SetFront(int len,byte[] data)
+        {
+            try
+            {
+                string data_str = Encoding.UTF8.GetString(data, 0, data.Length);
+                FrontRecord = JsonConvert.DeserializeObject<BetScoreRecord>(data_str);
+                var player_score = JsonConvert.DeserializeObject<ObservableCollection<Player>>(FrontRecord.JsonPlayerScores);
+
+                RoundIndex = FrontRecord.RoundIndex;
+                SessionIndex = FrontRecord.SessionIndex;
+
+                //CountDown = FrontRecord.Countdown;
+                //StateText = FrontRecord.State == (int)GameState.Shuffling ? "洗牌中" : (FrontRecord.State == (int)GameState.Betting ? "押注中" : "开牌中");
+                //FrontCurrentSession = JsonConvert.DeserializeObject<Session>(FrontRecord.JsonSession);
+
+                DeskBanker = FrontRecord.DeskBanker;
+                DeskPlayer = FrontRecord.DeskPlayer;
+                DeskTie = FrontRecord.DeskTie;
+                DeskScore = player_score.Sum(p => p.Balance);
+
+                Differ = Math.Abs(DeskBanker - DeskPlayer);
+                MostPlayer = player_score.Max(p => p.BetScore.Values.Sum());
+
+                Profit = GetProfit(FrontRecord.Winner, DeskBanker, DeskPlayer, DeskTie);
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+#endif
+            }
+        }
+        public int GetProfit(int winner, int banker, int player, int tie)
+        {
+            var side = (WinnerEnum)winner;
+            switch (side)
+            {
+                case WinnerEnum.banker:
+                    return (player + tie - (int)Math.Ceiling(1.95 * banker));
+                case WinnerEnum.tie:
+                    return player + banker - 8 * tie;
+                case WinnerEnum.player:
+                    return (banker + tie - 2 * player);
+                default:
+                    return 0;
             }
         }
         private int temp = 0;
@@ -434,7 +594,7 @@ namespace Bacc_background
                 ImageSourceConverter converter = new ImageSourceConverter();
                 Stream ms = new MemoryStream(buffer);
                 var bitmap = converter.ConvertFrom(ms) as BitmapFrame;
-                //game_bitmap = bitmap;
+                game_bitmap = bitmap;
                 MainWindow.Instance.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     imgGame.Source = bitmap;
@@ -448,11 +608,11 @@ namespace Bacc_background
         {
             try
             {
-                string data_str = Encoding.Default.GetString(data, 0, data.Length);
+                string data_str = Encoding.UTF8.GetString(data, 0, data.Length);
                 var sessions = JsonConvert.DeserializeObject<ObservableCollection<Session>>(data_str);
                 if (sessions.Count == 0)
                 {
-                    MessageBox.Show("前台路单尚未生成，请先开始游戏");
+                    MessageBox.Show("前台没有后台传送的路单!");
                     return;
                 }
                 LocalSessions = sessions;
@@ -489,6 +649,7 @@ namespace Bacc_background
         }
 
         #endregion
+
         #region 视频监控
         //public void StartClient()
         //{
@@ -553,5 +714,9 @@ namespace Bacc_background
         //}
         #endregion
 
+        private void btnBetRecord_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

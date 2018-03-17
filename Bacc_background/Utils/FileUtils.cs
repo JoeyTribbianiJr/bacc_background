@@ -15,7 +15,7 @@ namespace WsUtils
 
         public FileUtils()
         {
-            _syspath = Environment.CurrentDirectory;
+            _syspath = Environment.CurrentDirectory + "/Config/";
         }
 
         public static FileUtils getInstance()
@@ -42,7 +42,19 @@ namespace WsUtils
             //sockectLogger.doLog("Read done: " + data);
             return data;
         }
-
+        public string ReadFileFromAbsolute(string name)
+        {
+            string data = "";
+            string filePath = name;
+            FileInfo fi = new FileInfo(filePath);
+            StreamReader sr = null;
+            sr = fi.OpenText();
+            data = sr.ReadToEnd();
+            sr.Close();
+            sr.Dispose();
+            //sockectLogger.doLog("Read done: " + data);
+            return data;
+        }
         public void WriteFile(string name, string info)
         {
             WriteFile(name, info, true);
@@ -75,7 +87,30 @@ namespace WsUtils
             //销毁流
             sw.Dispose();
         }
-
+        public void WriteFileFromAbsolute(string name, string data, bool overwrite)
+        {
+            //文件流信息
+            StreamWriter sw;
+            FileInfo t = new FileInfo(name);
+            if (!t.Exists)
+            {
+                //如果此文件不存在则创建
+                sw = t.CreateText();
+            }
+            else
+            {
+                if (overwrite)
+                    sw = t.CreateText();
+                else
+                    sw = t.AppendText();
+            }
+            //以行的形式写入信息
+            sw.WriteLine(data);
+            //关闭流
+            sw.Close();
+            //销毁流
+            sw.Dispose();
+        }
         /**   用于写可读写空间的文件
 	   * name：读取文件的名称   
 	   */

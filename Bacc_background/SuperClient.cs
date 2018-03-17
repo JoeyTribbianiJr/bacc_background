@@ -6,14 +6,14 @@ using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace Bacc_background
+namespace Bacc_front
 {
     public class SuperClient : AsyncTcpSession
     {
         //public override int ReceiveBufferSize { get => base.ReceiveBufferSize; set => base.ReceiveBufferSize = value; }
         public SuperClient()
         {
-            ReceiveBufferSize = 1024 * 484;
+            ReceiveBufferSize = 1024 * 1024;
             // 连接断开事件
             Closed += Client_Closed;
             // 收到服务器数据事件
@@ -57,7 +57,7 @@ namespace Bacc_background
         {
             if (IsConnected)
             {
-                byte[] arr = Encoding.Default.GetBytes(string.Format("{0} {1}\r\n", key, data));
+                byte[] arr = Encoding.UTF8.GetBytes(string.Format("{0} {1}\r\n", key, data));
                 Send(arr, 0, arr.Length);
             }
             else
@@ -71,7 +71,7 @@ namespace Bacc_background
             var data = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
             if (IsConnected)
             {
-                byte[] arr = Encoding.Default.GetBytes(string.Format("{0} {1}\r\n", type, data));
+                byte[] arr = Encoding.UTF8.GetBytes(string.Format("{0} {1}\r\n", type, data));
                 Send(arr, 0, arr.Length);
             }
             else
@@ -81,9 +81,5 @@ namespace Bacc_background
         }
 
     }
-    public enum RemoteCommand
-    {
-        Image = 1,
-        ImportFront
-    }
+    
 }

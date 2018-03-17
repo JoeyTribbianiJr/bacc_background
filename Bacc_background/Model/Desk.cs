@@ -202,9 +202,8 @@ namespace Bacc_front
             int playerThirdCard = 0;
             int[] handValues = { CalcHandValue(hand_cards[0]), CalcHandValue(hand_cards[1]) };
 
-            if (!(handValues[0] > 7) || !(handValues[1] > 7))
+            if (!(handValues[0] > 7) && !(handValues[1] > 7))
             {
-
                 //Determine Player Hand first
                 if (handValues[0] < 6)
                 {
@@ -217,40 +216,40 @@ namespace Bacc_front
                     playerDrawStatus = false;
 
                 //Determine Banker Hand
-                if (playerDrawStatus == false)
-                {
-                    if (handValues[1] < 6)
-                        bankerDrawStatus = true;
-                }
+                //if (playerDrawStatus == false)
+                //{
+                //    if (handValues[1] < 6)
+                //        bankerDrawStatus = true;
+                //}
+                //else
+                //{
+                if (handValues[1] < 3)
+                    bankerDrawStatus = true;
                 else
                 {
-                    if (handValues[1] < 3)
-                        bankerDrawStatus = true;
-                    else
+                    switch (handValues[1])
                     {
-                        switch (handValues[1])
-                        {
-                            case 3:
-                                if (playerThirdCard != 8)
-                                    bankerDrawStatus = true;
-                                break;
-                            case 4:
-                                if (playerThirdCard > 1 && playerThirdCard < 8)
-                                    bankerDrawStatus = true;
-                                break;
-                            case 5:
-                                if (playerThirdCard > 3 && playerThirdCard < 8)
-                                    bankerDrawStatus = true;
-                                break;
-                            case 6:
-                                if (playerThirdCard > 5 && playerThirdCard < 8)
-                                    bankerDrawStatus = true;
-                                break;
-                            default:
-                                break;
-                        }
+                        case 3:
+                            if (playerThirdCard != 8)
+                                bankerDrawStatus = true;
+                            break;
+                        case 4:
+                            if (playerThirdCard > 1 && playerThirdCard < 8)
+                                bankerDrawStatus = true;
+                            break;
+                        case 5:
+                            if (playerThirdCard > 3 && playerThirdCard < 8)
+                                bankerDrawStatus = true;
+                            break;
+                        case 6:
+                            if (playerThirdCard > 5 && playerThirdCard < 8)
+                                bankerDrawStatus = true;
+                            break;
+                        default:
+                            break;
                     }
                 }
+                //}
             }
 
             //deal banker third card

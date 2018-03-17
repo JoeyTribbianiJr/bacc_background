@@ -8,5 +8,11 @@
         <local:WayBillVisibleConverter x:Key="WayBillVisibleConverter"></local:WayBillVisibleConverter>
         <local:WayBillContentConverter x:Key="WayBillContentConverter"></local:WayBillContentConverter>
         <local:NextPageButtonEnableConverter x:Key="NextPageButtonEnableConverter"></local:NextPageButtonEnableConverter>
+        <local:ChipVisibleConverter x:Key="ChipVisibleConverter"></local:ChipVisibleConverter>
+        <local:ChipBackgroundConverter x:Key="ChipBackgroundConverter"></local:ChipBackgroundConverter>
+        <local:ChipTextMarginConverter x:Key="ChipTextMarginConverter"></local:ChipTextMarginConverter>
+        <local:FrontWayBillBackgroundConverter x:Key="FrontWayBillBackgroundConverter"></local:FrontWayBillBackgroundConverter>
+        <local:FrontWayBillVisibleConverter x:Key="FrontWayBillVisibleConverter"></local:FrontWayBillVisibleConverter>
+        <local:FrontWayBillContentConverter x:Key="FrontWayBillContentConverter"></local:FrontWayBillContentConverter>
     </Application.Resources>
 </Application>
