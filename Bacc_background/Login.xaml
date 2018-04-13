@@ -1,0 +1,62 @@
+﻿<Window x:Class="Bacc_background.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bacc_background"
+        mc:Ignorable="d"
+        Title="登入主机" Height="300" Width="302">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style.xaml" />
+                <ResourceDictionary Source="DataGridStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="20,5,20,0"  Orientation="Horizontal">
+            <TextBlock Height="20" Width="75" TextAlignment="Right" FontSize="16" >主机列表:</TextBlock>
+            <ComboBox Margin="5,0,5,0" SelectedIndex="0"  DisplayMemberPath="Host" Width="160" Name="cbIps"></ComboBox>
+        </StackPanel>
+        <StackPanel Margin="20,5,20,0" Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Height="20" Width="75" TextAlignment="Right" FontSize="16" >密码:</TextBlock>
+            <TextBox Name="txtLoginPwd" Margin="5,0,5,0" Width="160" >11111111</TextBox>
+        </StackPanel>
+        <StackPanel Margin="20,5,20,0" Grid.Row="2" Orientation="Horizontal">
+            <TextBlock Height="20" Width="75" TextAlignment="Right" FontSize="16" >备注:</TextBlock>
+            <TextBox Name="txtRemark" Margin="5,0,5,0" Width="160" ></TextBox>
+        </StackPanel>
+        <StackPanel Margin="20,10,20,0" Grid.Row="3" Orientation="Horizontal">
+            <Button Name="btnDeleteIp" Click="btnDeleteIp_Click" Width="75" Style="{StaticResource ColorButton}" Background="Red" >删除主机</Button>
+            <Button Name="btnConnect" Click="btnConnect_Click" Width="75" Style="{StaticResource ColorButton}" Background="Green" HorizontalAlignment="Center"  Margin="90,0,0,0">连接主机</Button>
+        </StackPanel>
+        <Border Grid.Row="5" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Gray" CornerRadius="3">
+        </Border>
+            <StackPanel Margin="20,5,20,0" Grid.Row="5" Orientation="Horizontal">
+                <TextBlock Height="20" Width="90" TextAlignment="Right" FontSize="16" >输入主机名:</TextBlock>
+                <TextBox Name="txtNewIp" Margin="5,0,5,0" Width="160" ></TextBox>
+            </StackPanel>
+            <StackPanel Margin="20,5,20,0" Grid.Row="6" Orientation="Horizontal">
+                <TextBlock Height="20" Width="90" TextAlignment="Right" FontSize="16" >输入备注:</TextBlock>
+                <TextBox Name="txtNewRemark" Margin="5,0,5,0" Width="160" ></TextBox>
+            </StackPanel>
+            <StackPanel Margin="20,5,20,0" Grid.Row="7" Grid.RowSpan="2" Orientation="Horizontal">
+            <Button Name="btnAddIp" Margin="0,-10,0,0" Height="25"  Click="btnAddIp_Click" Style="{StaticResource ColorButton}" Background="MediumSlateBlue" Width="100">添加主机</Button>
+            </StackPanel>
+    </Grid>
+</Window>

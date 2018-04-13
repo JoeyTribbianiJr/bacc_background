@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
-using System.Windows.Media.Imaging;
 using WsUtils;
 
 namespace Bacc_front
@@ -12,10 +10,9 @@ namespace Bacc_front
     [PropertyChanged.ImplementPropertyChanged]
     public class Desk
     {
+        private const int player_num = 14;
         public ObservableCollection<Player> Players { get => players; set => players = value; }
-        public int AllMostLimit { get; set; }
-        public int LeastBet { get; set; }
-        public int TieMostBet { get; set; }
+        public Dictionary<BetSide, int> desk_amount;
         public static Desk Instance
         {
             get
@@ -30,10 +27,24 @@ namespace Bacc_front
 
         private Desk()
         {
-            players = new ObservableCollection<Player>();
-            AllMostLimit = Setting.Instance.GetIntSetting("total_limit_red");
-            LeastBet = Setting.Instance.GetIntSetting("mini_chip_facevalue");
-            TieMostBet = Setting.Instance.GetIntSetting("tie_limit_red");
+            Players = new ObservableCollection<Player>();
+                for (int i = 0; i < player_num + 1; i++)
+                {
+                    if (i == 12)
+                    {
+                        continue;
+                    }
+                var p = new Player(i + 1, CalcPlayerEarning)
+                {
+                    Balance = 0,
+                    CurEarn = 0,
+                    Bet_hide = false,
+                    choose_denomination = BetDenomination.mini,
+                    };
+                    Players.Add(p);
+                }
+            
+            //ControlBoard.Instance.dgScore.ItemsSource = Players;
 
             desk_amount = new Dictionary<BetSide, int>()
             {
@@ -42,39 +53,91 @@ namespace Bacc_front
                 {BetSide.tie,0 },
             };
         }
+        public ObservableCollection<AddSubScoreRecord> CreateNewScoreRecord()
+        {
+            var accounts = new ObservableCollection<AddSubScoreRecord>();
+            for (int i = 0; i < player_num + 1; i++)
+            {
+                if (i == 12)
+                {
+                    continue;
+                }
+                accounts.Add(new AddSubScoreRecord()
+                {
+                    PlayerId = (i + 1).ToString(),
+                    TotalAccount = 0,
+                    TotalAddScore = 0,
+                    TotalSubScore = 0
+                });
+            }
+            return accounts;
+        }
+       
+        public void CancelHide()
+        {
+            foreach (var p in Players)
+            {
+                p.Bet_hide = false;
+            }
+        }
 
         #region 赌桌规则
+        public bool CanHeHide(Player p)
+        {
+            return p.Balance != 0;
+        }
         public bool CanHeCancleBet(Player p)
         {
+            //if (Game.Instance._isIn3)
+            //{
+            //    return false;
+            //}
+            var can_cancle_bet = _setting._can_cancle_bet;
+
             var b_amount = desk_amount[BetSide.banker] - p.BetScore[(int)BetSide.banker];
             var p_amount = desk_amount[BetSide.player] - p.BetScore[BetSide.player];
-
-            var desk_limit_red = _setting.GetIntSetting("desk_limit_red");
-
+            var total_limit_red = _setting._total_limit_red;
             //如果撤注后庄闲差仍小于限红则允许撤注
-            return Math.Abs(b_amount - p_amount) <= desk_limit_red;
+            var limit_red_can = Math.Abs(b_amount - p_amount) <= total_limit_red;
+            if (can_cancle_bet == 0)    //根据限红自动调整
+            {
+                return limit_red_can;
+            }
+            else
+            {
+                return (can_cancle_bet - p.BetScore.Values.Sum() >= 0) && limit_red_can;
+            }
         }
         public bool CanHeBet(Player p, BetSide side)
         {
             var bet_amount = p.Balance >= p.denomination ? p.denomination : p.Balance;
 
             //待加入其他限制规则
-            var can_he = LimitRed(bet_amount, side) && true;
+            var can_he = p.Balance > 0 && TotalLimitRed(bet_amount, side) && MinLimitBet(p) && DeskLimitRed(bet_amount, side);
 
             return can_he;
         }
-        private bool LimitRed(int bet_amount, BetSide side)
+        public bool MinLimitBet(Player p)   //例如现在最小限注50，小筹码10，押的第一下就是50，第二次起每次10递增
+        {
+            //if (p.BetScore.Values.Sum() == 0)
+            //{
+            //    return p.Balance >= _setting._min_limit_bet;
+            //}
+            return true;
+        }
+
+        private bool TotalLimitRed(int bet_amount, BetSide side)
         {
             var b_amount = desk_amount[BetSide.banker];
             var t_amount = desk_amount[BetSide.tie];
             var p_amount = desk_amount[BetSide.player];
 
-            var desk_limit = _setting.GetIntSetting("desk_limit_red");
+            var total_limit = _setting._total_limit_red;
 
             if (side == BetSide.banker)
             {
                 var desk_red = Math.Abs(bet_amount + b_amount - p_amount);
-                if (desk_red > desk_limit)
+                if (desk_red > total_limit)
                 {
                     return false;
                 }
@@ -82,14 +145,14 @@ namespace Bacc_front
             if (side == BetSide.player)
             {
                 var desk_red = Math.Abs(bet_amount + p_amount - b_amount);
-                if (desk_red > desk_limit)
+                if (desk_red > total_limit)
                 {
                     return false;
                 }
             }
             if (side == BetSide.tie)
             {
-                var tie_limit = _setting.GetIntSetting("tie_limit_red");
+                var tie_limit = _setting._tie_limit_red;
                 var desk_tie_red = Math.Abs(bet_amount + t_amount);
                 if (desk_tie_red > tie_limit)
                 {
@@ -99,28 +162,72 @@ namespace Bacc_front
 
             return true;
         }
-        private int GetCardValue(Card card)
+        private bool DeskLimitRed(int bet_amount, BetSide side)
+        {
+            var desk_score = desk_amount.Values.Sum();
+            var desk_limit_red = _setting._desk_limit_red;
+
+            return bet_amount + desk_score <= desk_limit_red;
+        }
+        public int GetCardValue(Card card)
         {
             var weight = (int)card.GetCardWeight;
-            if (weight > 9)
+            var singleDouble = _setting._single_double;
+            if (singleDouble == "单张牌")
             {
-                weight = 0;
+                if (weight == 1)
+                {
+                    weight = 14;
+                }
+                weight = (int)card.GetCardSuit * 14 + weight;
+            }
+            else
+            {
+                if (weight > 9)
+                {
+                    weight = 0;
+                }
             }
             return weight;
         }
         public int[] CancleSpace()
         {
-            var res = new int[2];
-            var banker = desk_amount[BetSide.banker];
-            var player = desk_amount[BetSide.player];
-            var sub = banker - player;
-            var desk_limit = _setting.GetIntSetting("desk_limit_red");
-            res[0] = desk_limit - sub;
-            res[1] = desk_limit + sub;
+            var res = new int[3];
+            var can_cancle_bet = _setting._can_cancle_bet;
+            if (can_cancle_bet == 0)    //根据限红自动调整
+            {
+                var banker = desk_amount[BetSide.banker];
+                var player = desk_amount[BetSide.player];
+                var sub = banker - player;
+                var desk_limit = _setting._total_limit_red;
+                res[0] = desk_limit - sub;
+                res[1] = desk_limit + sub;
+            }
+            else
+            {
+                res[0] = can_cancle_bet;
+                res[1] = can_cancle_bet;
+            }
+            var tie = desk_amount[BetSide.tie];
+            res[2] = _setting._tie_limit_red - tie;
             return res;
         }
         #endregion
         #region 赌桌及玩家收益操作
+        public void ChangeDenomationType()
+        {
+            foreach (var p in Players)
+            {
+                if (p.choose_denomination == BetDenomination.big)
+                {
+                    if (p.Balance < p.Denominations[(int)BetDenomination.big])
+                    {
+                        p.choose_denomination = BetDenomination.mini;
+                        p.denomination = p.Denominations[(int)p.choose_denomination];
+                    }
+                }
+            }
+        }
         public void UpdateDeskAmount(BetSide side, int score)
         {
             desk_amount[side] += score;
@@ -140,9 +247,22 @@ namespace Bacc_front
 
             foreach (var player in players)
             {
-                player.Balance += CalcPlayerEarning(winner.Item1, player.BetScore);
+                //player.Balance += CalcPlayerEarning(winner.Item1, player.BetScore);
+                player.CurEarn = CalcPlayerEarning(winner.Item1, player.BetScore);
                 player.ClearBet();
+
+                //爆机累加
+                //Game.Instance.CurrentSession.BoomAcc += player.CurEarn;
             }
+        }
+        public void SettleEarnToBalance()
+        {
+            foreach (var player in players)
+            {
+                player.Balance += player.CurEarn;
+                player.CurEarn = 0;
+            }
+            Desk.Instance.ChangeDenomationType();
         }
         public int CalcPlayerEarning(BetSide winner, ObservableDictionary<BetSide, int> p_bets)
         {
@@ -216,40 +336,42 @@ namespace Bacc_front
                     playerDrawStatus = false;
 
                 //Determine Banker Hand
-                //if (playerDrawStatus == false)
-                //{
-                //    if (handValues[1] < 6)
-                //        bankerDrawStatus = true;
-                //}
-                //else
-                //{
-                if (handValues[1] < 3)
-                    bankerDrawStatus = true;
-                else
+                if (playerDrawStatus == false)
                 {
-                    switch (handValues[1])
+                    if (handValues[1] < 6)
                     {
-                        case 3:
-                            if (playerThirdCard != 8)
-                                bankerDrawStatus = true;
-                            break;
-                        case 4:
-                            if (playerThirdCard > 1 && playerThirdCard < 8)
-                                bankerDrawStatus = true;
-                            break;
-                        case 5:
-                            if (playerThirdCard > 3 && playerThirdCard < 8)
-                                bankerDrawStatus = true;
-                            break;
-                        case 6:
-                            if (playerThirdCard > 5 && playerThirdCard < 8)
-                                bankerDrawStatus = true;
-                            break;
-                        default:
-                            break;
+                        bankerDrawStatus = true;
                     }
                 }
-                //}
+                else
+                {
+                    if (handValues[1] < 3)
+                        bankerDrawStatus = true;
+                    else
+                    {
+                        switch (handValues[1])
+                        {
+                            case 3:
+                                if (playerThirdCard != 8)
+                                    bankerDrawStatus = true;
+                                break;
+                            case 4:
+                                if (playerThirdCard > 1 && playerThirdCard < 8)
+                                    bankerDrawStatus = true;
+                                break;
+                            case 5:
+                                if (playerThirdCard > 3 && playerThirdCard < 8)
+                                    bankerDrawStatus = true;
+                                break;
+                            case 6:
+                                if (playerThirdCard > 5 && playerThirdCard < 8)
+                                    bankerDrawStatus = true;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
             }
 
             //deal banker third card
@@ -288,6 +410,22 @@ namespace Bacc_front
                 return winner;
             }
         }
+
+        public static int GetProfit(int winner, int banker, int player, int tie)
+        {
+            var side = (WinnerEnum)winner;
+            switch (side)
+            {
+                case WinnerEnum.banker:
+                    return (player + tie - (int)Math.Ceiling(BANKER_ODDS * banker));
+                case WinnerEnum.tie:
+                    return player + banker - (int)Math.Ceiling(TIE_ODDS * tie);
+                case WinnerEnum.player:
+                    return banker + tie - (int)Math.Ceiling(PLAYER_ODDS * player);
+                default:
+                    return 0;
+            }
+        }
         #endregion
 
         #region 私有变量
@@ -297,7 +435,6 @@ namespace Bacc_front
         private float[] odds_map = new float[3] { BANKER_ODDS, TIE_ODDS, PLAYER_ODDS };
 
         private ObservableCollection<Player> players;
-        private Dictionary<BetSide, int> desk_amount;
 
         private Setting _setting = Setting.Instance;
         private static Desk instance;

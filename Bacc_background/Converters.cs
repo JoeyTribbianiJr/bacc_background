@@ -302,4 +302,25 @@ namespace Bacc_background
             throw new NotImplementedException();
         }
     }
+    public class BetRecordSmallContentConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            var winner = (int)values[3];
+            if (winner == (int)WinnerEnum.none)
+            {
+                return "";
+            }
+            var b = (int)values[0];
+            var t = (int)values[1];
+            var p = (int)values[2];
+            var profit = Desk.GetProfit(winner, b, p, t);
+            return profit > 0 ? "+" : (profit == 0) ? "" : "-";
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

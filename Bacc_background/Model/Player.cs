@@ -37,9 +37,12 @@ namespace Bacc_front
         public int Last_sub { get => last_sub; set => last_sub = value; }
         public int Sub_score { get => sub_score; set => sub_score = value; }
         public bool Bet_hide { get => bet_hide; set => bet_hide = value; }
+        public int CurEarn { get => curEarn; set => curEarn = value; }
 
         public int denomination;
         public BetDenomination choose_denomination;
+        private int curEarn;
+
         public int[] Denominations { get; set; }
         public event NativeCountRule count_rule;
 

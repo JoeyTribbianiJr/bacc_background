@@ -7,26 +7,30 @@
 		mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="788" Width="1044" >
-        <!--Title="MainWindow" Height="1172" Width="1556" >-->
-	<Window.Resources>
-			<ResourceDictionary Source="Style.xaml" >
-		</ResourceDictionary>
-	</Window.Resources>
-	<Grid >
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="2*"></ColumnDefinition>
-			<ColumnDefinition Width="1*"></ColumnDefinition>
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="2*"></RowDefinition>
-			<RowDefinition Height="1*"></RowDefinition>
-		</Grid.RowDefinitions>
-		<GroupBox Header="前台监控" Margin="10,0,0,0"
+    <!--Title="MainWindow" Height="1172" Width="1556" >-->
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style.xaml" />
+                <ResourceDictionary Source="DataGridStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Header="前台监控" Margin="10,0,0,0"
 				  Grid.Column="0" Grid.Row="0">
-            <!--<Viewbox Stretch="fill">
+            <Viewbox Stretch="fill">
                 <Canvas x:Name="Casino" Height="768" Width="1024">
                     <Canvas.Background>
-                        <ImageBrush ImageSource="Img/desk.bmp" />
+                        <ImageBrush ImageSource="Img/desk2.bmp" />
                     </Canvas.Background>
                     <TextBlock x:Name="txtCountDown"  FontSize="40" FontWeight="UltraBold" Foreground="Green" Text="{Binding CountDown}" Canvas.Left="10" Canvas.Top="10" ></TextBlock>
                     <TextBlock Name="txtState" FontSize="30" Foreground="Red" Text="{Binding StateText}" Canvas.Left="10" Canvas.Top="61" ></TextBlock>
@@ -35,7 +39,7 @@
                         BorderThickness="2"
                         Name="bdSign"
                         CornerRadius="3"
-                        Canvas.Left="409" Canvas.Top="348">
+                        Canvas.Left="409" Canvas.Top="355">
                         <Border.BorderBrush>
                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                 <GradientStop Offset="0" Color="#A5A5A5" />
@@ -68,6 +72,18 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
+                    <Border Width="200" Height="90" 
+                        BorderThickness="2"
+                        Name="bdPrepare" 
+                        CornerRadius="3" Background="Silver"
+                        Canvas.Left="409" Canvas.Top="348">
+                        <Border CornerRadius="5" Width="190" Height="80" BorderThickness="1" BorderBrush="AliceBlue">
+                            <StackPanel >
+                                <TextBlock  HorizontalAlignment="Center" Margin="0,5,0,0" Name="txtFrontStateTitle" FontFamily="隶书">正在洗牌</TextBlock>
+                                <TextBlock HorizontalAlignment="Center" Margin="0,15,0,0"   Name="txtCountdownDescription"></TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Border>
 
                     <Border  Width="351" Height="85" Canvas.Left="665"
                          BorderThickness="2" CornerRadius="6" Padding="5">
@@ -83,7 +99,7 @@
                                 <GradientStop Offset="0" Color="LightBlue" />
                             </LinearGradientBrush>
                         </Border.Background>
-                        <Grid Name="grdFrontSmallWaybill" >
+                        <Grid Name="grdSmallWaybill" >
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition />
@@ -93,7 +109,7 @@
                                 <RowDefinition />
                                 <RowDefinition />
                                 <RowDefinition />
-                                --><!--<RowDefinition />--><!--
+                                <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
@@ -211,7 +227,7 @@
                         <Button DataContext="{Binding Players[6].BetScoreOnTie}" Canvas.Left="329" Canvas.Top="316" Style="{StaticResource BetChipButton}" Width="38" />
                     </Canvas>
                     <Grid  x:Name="grdBigWaybill" 
-								   Width="242" Height="132" Canvas.Left="390" Canvas.Top="442">
+								   Width="242" Height="132"  Canvas.Left="390" Canvas.Top="449">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
@@ -235,13 +251,9 @@
                         </Grid.ColumnDefinitions>
                     </Grid>
 
-                    --><!--<Button Style="{StaticResource CardButton1}" Canvas.Left="826" Canvas.Top="679" ></Button>
+                    <!--<Button Style="{StaticResource CardButton1}" Canvas.Left="826" Canvas.Top="679" ></Button>
                 <Button Style="{StaticResource CardButton1}" Canvas.Left="856" Canvas.Top="679" ></Button>
                 <Button Style="{StaticResource CardButton1}" Canvas.Left="444" Canvas.Top="319" ></Button>-->
-                    <!--<Image gif:ImageBehavior.AnimatedSource="Gif/b_3.gif" Canvas.Left="446" Canvas.Top="702"></Image>-->
-                    <!--<Image gif:ImageBehavior.AnimatedSource="Gif/flag.gif" Canvas.Left="779" Canvas.Top="75"></Image>-->
-                    <!--<Image gif:ImageBehavior.AnimatedSource="Gif/flag.gif" Canvas.Left="779" Canvas.Top="75"></Image>-->
-                    <!--<Image gif:ImageBehavior.AnimatedSource="Gif/fire.gif" gif:ImageBehavior.RepeatBehavior="Forever"  Canvas.Left="111"/>--><!--
                     <Border  Width="180"  Opacity="0.8" Name="bdBankerState"
                         CornerRadius="5" BorderThickness="2"
 					        Height="56" Canvas.Left="238" Canvas.Top="712">
@@ -288,276 +300,273 @@
                                 VerticalAlignment="Center"
                         ></TextBlock>
                     </Border>
-                    
+                    <Canvas x:Name="cvsHidebar" Visibility="Hidden">
+                        <Image Visibility="{Binding Players[0].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="189" Canvas.Top="539" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[1].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="189" Canvas.Top="501" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[2].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="189" Canvas.Top="463" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[3].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="189" Canvas.Top="425" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[4].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="189" Canvas.Top="387" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[5].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="189" Canvas.Top="349" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[6].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="189" Canvas.Top="311" Width="196" Height="38" />
+
+                        <Image Visibility="{Binding Players[13].Bet_hide, Converter={StaticResource ChipVisibleConverter}}"  Source="Img/hidebar.bmp" Canvas.Left="636" Canvas.Top="539" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[12].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="636" Canvas.Top="501" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[11].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="636" Canvas.Top="463" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[10].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="636" Canvas.Top="425" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[9].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="636" Canvas.Top="387" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[8].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="636" Canvas.Top="349" Width="196" Height="38" />
+                        <Image Visibility="{Binding Players[7].Bet_hide, Converter={StaticResource ChipVisibleConverter}}" Source="Img/hidebar.bmp" Canvas.Left="636" Canvas.Top="311" Width="196" Height="38" />
+                    </Canvas>
+
                 </Canvas>
-            </Viewbox>-->
-            <!--<StackPanel>
-				
-				<Ellipse Height="50" Width="100">
-				<Ellipse.Fill>
-					<SolidColorBrush x:Name="ellipseBrush" Color="SteelBlue"/>
-				</Ellipse.Fill>
-				<Ellipse.Triggers>
-					<EventTrigger RoutedEvent="Ellipse.Loaded">
-						<EventTrigger.Actions>
-							<BeginStoryboard>
-								<Storyboard Duration="00:00:06" RepeatBehavior="Forever">
-									<DoubleAnimation Storyboard.TargetProperty="(Ellipse.Width)" 
-                                                 Duration="0:0:3" AutoReverse="True" FillBehavior="Stop"
-                                                 RepeatBehavior="Forever" AccelerationRatio="0.9" 
-                                                 DecelerationRatio="0.1" From="100" To="300">
-										<DoubleAnimation.EasingFunction>
-											<BounceEase EasingMode="EaseInOut"/>
-										</DoubleAnimation.EasingFunction>
-									</DoubleAnimation>
-									<ColorAnimation Storyboard.TargetName="ellipseBrush" Storyboard.TargetProperty="(SolidColorBrush.Color)"
-                                                Duration="0:0:3" AutoReverse="True" FillBehavior="Stop"
-                                                RepeatBehavior="Forever" From="Yellow" To="Red"/>
-								</Storyboard>
-							</BeginStoryboard>
-						</EventTrigger.Actions>
-					</EventTrigger>
-				</Ellipse.Triggers>
-			</Ellipse>
-				
-                
-            </StackPanel>-->
-            <!--<Grid>
-                <Viewport3D Name="viewport3D1">
+            </Viewbox>
 
-                    <Viewport3D.Camera>
-                        <PerspectiveCamera x:Name = "camMain" Position = "6 5 4" LookDirection = "-6 -5 -4">
-                        </PerspectiveCamera>
-                    </Viewport3D.Camera>
-
-                    <ModelVisual3D>
-                        <ModelVisual3D.Content>
-                            <DirectionalLight x:Name = "dirLightMain" Direction = "-1,-3,-1">
-                            </DirectionalLight>
-                        </ModelVisual3D.Content>
-                    </ModelVisual3D>
-
-                    <ModelVisual3D x:Name = "MyModel">
-                        <ModelVisual3D.Content>
-                            <GeometryModel3D>
-
-                                <GeometryModel3D.Geometry>
-                                    <MeshGeometry3D x:Name = "meshMain"
-                        Positions = "0 0 0  1 0 0  0 1 0  1 1 0  0 0 1  1 0 1  0 1 1  0 1 1"  
-                        TriangleIndices = "2 3 1  3 1 0  7 1 3  7 5 1  6 5 7  6 4 5  6 2 0
-                        2 0 4  2 7 3  2 6 7  0 1 5  0 5 4">
-                                    </MeshGeometry3D>
-                                </GeometryModel3D.Geometry>
-
-                                <GeometryModel3D.Material>
-                                    <DiffuseMaterial x:Name = "matDiffuseMain">
-                                        <DiffuseMaterial.Brush>
-                                            <SolidColorBrush Color = "Bisque"/>
-                                        </DiffuseMaterial.Brush>
-                                    </DiffuseMaterial>
-                                </GeometryModel3D.Material>
-
-                            </GeometryModel3D>
-                        </ModelVisual3D.Content>
-
-                        <ModelVisual3D.Transform>
-                            <RotateTransform3D>
-                                <RotateTransform3D.Rotation>
-                                    <AxisAngleRotation3D x:Name = "rotate" Axis = "1 2 1"/>
-                                </RotateTransform3D.Rotation>
-                            </RotateTransform3D>
-                        </ModelVisual3D.Transform>
-
-                    </ModelVisual3D>
-                </Viewport3D>
-                <Slider Height = "23" HorizontalAlignment = "Left"  
-         Margin = "145,271,0,0" Name = "slider1" 
-         VerticalAlignment = "Top" Width = "269"  
-         Maximum = "360" 
-         Value = "{Binding ElementName = rotate, Path=Angle}" />
-            </Grid>-->
-            <!--<ScrollViewer>
-                <ItemsControl ItemsSource="{StaticResource src}" ItemTemplate="{StaticResource flipItemTemplate}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-
-                </ItemsControl>
-            </ScrollViewer>-->
-            <Image Name="imgGame" Source="{Binding game_bitmap}"
+            <!--<Image Name="imgGame" Source="{Binding game_bitmap}"
 			   HorizontalAlignment="Stretch"
-			   VerticalAlignment="Stretch" ></Image>
-		</GroupBox>
-		<Grid Grid.Column="1" Grid.Row="0">
-			<StackPanel HorizontalAlignment="Stretch"
+			   VerticalAlignment="Stretch" ></Image>-->
+        </GroupBox>
+        <Grid Grid.Column="1" Grid.Row="0" Name="gdPwdAndSetting" Visibility="Hidden">
+            <StackPanel HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch">
-				<GroupBox Header="密码设置" Margin="0,10,10,0">
-					<StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="290">
-						<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
-							<TextBlock Width="70" HorizontalAlignment="Left" > 开分员密码：</TextBlock>
-							<TextBox Name="txtKaifen" Width="100"
-									 IsEnabled="False">54321</TextBox>
-						</StackPanel>
-						<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
-							<TextBlock Width="70" HorizontalAlignment="Left" > 管理员密码：</TextBlock>
-							<TextBox Name="txtAdmin" Width="100"
-									 IsEnabled="False">55321</TextBox>
-						</StackPanel>
-						<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
-							<TextBlock Width="70" HorizontalAlignment="Left" > 总经理密码：</TextBlock>
-							<TextBox Name="txtManager" Width="100"
-									 IsEnabled="False">56321</TextBox>
-						</StackPanel>
-						<StackPanel Margin="15,10,0,5" Orientation="Horizontal">
-							<TextBlock Width="70" HorizontalAlignment="Left" > 查账密码：</TextBlock>
-							<TextBox Name="txtChazhang" Width="100"
-									 IsEnabled="False">12345</TextBox>
-						</StackPanel>
-						<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
-							<TextBlock Width="70" HorizontalAlignment="Left" > 查押分密码：</TextBlock>
-							<TextBox Name="txtChayafen" Width="100"
-									 IsEnabled="False">54321</TextBox>
-						</StackPanel>
-						<StackPanel Margin="15,5,0,5" Orientation="Horizontal">
-							<Button Name="btnModiPwd" Width="65" HorizontalAlignment="Left"
+                <GroupBox Header="密码设置" Margin="0,0,10,0">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="290">
+                        <StackPanel Margin="15,5,0,5" Orientation="Horizontal">
+                            <TextBlock Width="70" HorizontalAlignment="Left" > 开分员密码：</TextBlock>
+                            <TextBox Name="txtKaifen" Width="100" Text="{Binding Path=PasswordMap[waiter_pwd],Mode=TwoWay}"
+									 IsEnabled="False"></TextBox>
+                        </StackPanel>
+                        <StackPanel Margin="15,5,0,5" Orientation="Horizontal">
+                            <TextBlock Width="70" HorizontalAlignment="Left" > 管理员密码：</TextBlock>
+                            <TextBox Name="txtAdmin" Width="100"  Text="{Binding Path=PasswordMap[manager_pwd],Mode=TwoWay}"
+									 IsEnabled="False"></TextBox>
+                        </StackPanel>
+                        <StackPanel Margin="15,5,0,5" Orientation="Horizontal">
+                            <TextBlock Width="70" HorizontalAlignment="Left" > 总经理密码：</TextBlock>
+                            <TextBox Name="txtManager" Width="100" Text="{Binding Path=PasswordMap[boss_pwd],Mode=TwoWay}"
+									 IsEnabled="False"></TextBox>
+                        </StackPanel>
+                        <StackPanel Margin="15,5,0,5" Orientation="Horizontal">
+                            <TextBlock Width="70" HorizontalAlignment="Left" > 查账密码：</TextBlock>
+                            <TextBox Name="txtChazhang" Width="100"  Text="{Binding Path=PasswordMap[audit_account_pwd],Mode=TwoWay}"
+									 IsEnabled="False"></TextBox>
+                        </StackPanel>
+                        <StackPanel Margin="15,5,0,5" Orientation="Horizontal">
+                            <TextBlock Width="70" HorizontalAlignment="Left" > 查押分密码：</TextBlock>
+                            <TextBox Name="txtChayafen" Width="100"  Text="{Binding Path=PasswordMap[audit_bet_record_pwd],Mode=TwoWay}"
+									 IsEnabled="False"></TextBox>
+                        </StackPanel>
+                        <StackPanel Margin="15,5,0,5" Orientation="Horizontal" >
+                            <Button Name="btnModiPwd" Width="65" HorizontalAlignment="Left"
 										HorizontalContentAlignment="Center" >修改密码</Button>
-							<CheckBox Margin="15,0,0,0" 
+                            <CheckBox Margin="15,0,0,0" Visibility="Hidden"
 										  Name="chkClosePwd" Width="100"
 											VerticalContentAlignment="Center"
 									 >关闭前台密码</CheckBox>
-						</StackPanel>
-					</StackPanel>
-				</GroupBox>
-				<GroupBox Header="参数设置" Margin="0,0,10,0" Height="300">
-                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-                        <ListBox Name="lstButton" Margin="0,5,0,10" 
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="参数设置" Margin="0,0,10,0" Height="300">
+                    <StackPanel>
+                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                            <ListBox Name="lstButton" Margin="0,5,0,5" 
 								Width="300" ItemsSource="{Binding game_setting}"
 								ItemTemplate="{StaticResource listBoxTemplateInt}" >
-                            <ListBox.Template>
-                                <ControlTemplate TargetType="{x:Type ListBox}">
-                                    <WrapPanel Width="300" Orientation="Horizontal" IsItemsHost="True"/>
-                                </ControlTemplate>
-                            </ListBox.Template>
-                        </ListBox>
-                    </ScrollViewer>
+                                <ListBox.Template>
+                                    <ControlTemplate TargetType="{x:Type ListBox}">
+                                        <WrapPanel Width="300" Orientation="Horizontal" IsItemsHost="True"/>
+                                    </ControlTemplate>
+                                </ListBox.Template>
+                            </ListBox>
+                        </ScrollViewer>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Width="70" Margin="5,3,5,3" Background="MediumAquamarine" Name="btnSaveSettingToFront" Click="btnSaveSettingToFront_Click" >保存参数</Button>
+                            <Button  Width="70" Margin="5,3,5,3"  Background="Yellow" Name="btnClearFrontAccount" Click="btnClearFrontAccount_Click" >前台清账</Button>
+                            <Button Width="70"  Margin="5,3,5,3" Background="Red" Name="btnFrontShutdown" Click="btnFrontShutdown_Click" >关机</Button>
+                            <Button Width="70"  Margin="5,3,5,3" Background="DeepSkyBlue" Name="btnQuitSetting" Click="btnQuitSetting_Click" >退出</Button>
+                        </StackPanel>
+                    </StackPanel>
                 </GroupBox>
-			</StackPanel>
-		</Grid>
-		<Grid Grid.Column="0" Grid.ColumnSpan="2"
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="0" Name="gdRecordAndProfit" >
+            <Grid.RowDefinitions>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <DataGrid Name="dgProfit" Background="Transparent" SelectionUnit="FullRow"
+                       ColumnWidth="*"  
+                  KeyboardNavigation.TabNavigation="None"
+                  AutoGenerateColumns="False"  VerticalAlignment="Top" 
+                  CanUserSortColumns="False"   Margin="10" IsReadOnly="True"
+                  CanUserResizeColumns="False" CanUserResizeRows="False"  SelectionMode="Single"
+                  CanUserReorderColumns="False" AlternationCount="2"  RowHeaderWidth="0" CanUserAddRows="False" >
+                <DataGrid.Columns >
+                    <DataGridTextColumn FocusManager.IsFocusScope="False"  Header="座位" Binding="{Binding PlayerId}" />
+                    <DataGridTextColumn Header="押分"   Binding="{Binding BetScore}" />
+                    <DataGridTextColumn Header="上水"  Binding="{Binding Profit}" />
+                    <DataGridTextColumn Header="顶分"  Binding="{Binding DingFen}" />
+                    <DataGridTextColumn Header="中分"  Binding="{Binding ZhongFen}" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <GroupBox Header="实时看账" Name="gpAccount" Grid.Row="1">
+                <Grid  Margin="0" Name="grdFrontBet">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="5,0,5,0">
+                        <TextBlock Foreground="Red">庄总押:</TextBlock>
+                        <TextBox Foreground="Red" IsEnabled="False" Text="{Binding DeskBanker}"></TextBox>
+                    </StackPanel>
+                    <StackPanel  Margin="5,0,5,0" Grid.Column="1">
+                        <TextBlock Foreground="Green">和总押:</TextBlock>
+                        <TextBox Foreground="Green" IsEnabled="False" Text="{Binding DeskTie}"></TextBox>
+                    </StackPanel>
+                    <StackPanel  Margin="5,0,5,0" Grid.Column="2">
+                        <TextBlock Foreground="Blue">闲总押:</TextBlock>
+                        <TextBox Foreground="Blue" IsEnabled="False" Text="{Binding DeskPlayer}"></TextBox>
+                    </StackPanel>
+                    <StackPanel  Margin="5,0,5,0" Grid.Row="1" Grid.Column="0">
+                        <TextBlock >庄闲差值:</TextBlock>
+                        <TextBox IsEnabled="False" Text="{Binding Differ}"></TextBox>
+                    </StackPanel>
+                    <StackPanel  Margin="5,0,5,0" Grid.Row="1" Grid.Column="1">
+                        <TextBlock >本场利润:</TextBlock>
+                        <TextBox IsEnabled="False" Text="{Binding Profit}"></TextBox>
+                    </StackPanel>
+                    <StackPanel  Margin="5,0,5,0" Grid.Row="1" Grid.Column="2">
+                        <TextBlock >押分最大分机号:</TextBlock>
+                        <TextBox IsEnabled="False" Text="{Binding MostPlayer}"></TextBox>
+                    </StackPanel>
+                    <StackPanel  Margin="5,0,5,0" Grid.Row="2" Grid.Column="0">
+                        <TextBlock >桌面余分:</TextBlock>
+                        <TextBox IsEnabled="False" Text="{Binding DeskScore}"></TextBox>
+                    </StackPanel>
+                    <!--<Button Background="MediumSeaGreen" Grid.Row="2"  Grid.Column="2"
+                                        Name="btnBetRecord" Click="btnBetRecord_Click">押分记录</Button>-->
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Column="0" Grid.ColumnSpan="2"
 						Grid.Row="1">
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="2*"></ColumnDefinition>
-					<ColumnDefinition Width="2*"></ColumnDefinition>
-					<ColumnDefinition Width="1*"></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-				<GroupBox Header="前台管理" Grid.Column="0" Margin="10,0,0,0">
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<!--<ColumnDefinition Width="1*"></ColumnDefinition>-->
-							<ColumnDefinition Width="5*"></ColumnDefinition>
-							<ColumnDefinition Width="1*"></ColumnDefinition>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="1*"></RowDefinition>
-							<RowDefinition Height="5*"></RowDefinition>
-							<RowDefinition Height="1*"></RowDefinition>
-						</Grid.RowDefinitions>
-						<StackPanel Grid.ColumnSpan="3" Orientation="Horizontal" 
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <GroupBox Header="前台管理"  Grid.Column="0" Margin="10,0,0,0">
+                    <Grid Name="gdFrontManger">
+                        <Grid.ColumnDefinitions>
+                            <!--<ColumnDefinition Width="1*"></ColumnDefinition>-->
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="5*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.ColumnSpan="3" Orientation="Horizontal" 
 									Height="25">
-							<Label >设置局数:</Label>
-							<TextBox Name="txtRoundNum" Text="{Binding haha}" Height="20" MinWidth="70"></TextBox>
-							<Button  Click="btnCurBillwayClick" Margin="10,0,0,0">当前路单</Button>
-							<Button  Name="btnPrintBillway" Click="btnPrintBillway_Click" 
-									 Margin="85,0,0,0">打印路单</Button>
-						</StackPanel>
-						<Button  Name="btnTransmitBillway"
+                            <Label >设置局数:</Label>
+                            <TextBox Name="txtRoundNum" Text="{Binding haha}" Height="20" MinWidth="70"></TextBox>
+                            <Button  Name="btnGeneralBillway" Margin="10,0,0,0"
+									 HorizontalAlignment="Center"
+									 Click="btnGeneralLocalSessions_Click">生成路单</Button>
+                            <Button  Name="btnPrintBillway" Click="btnPrintBillway_Click" 
+									 Margin="82,0,0,0">打印路单</Button>
+                        </StackPanel>
+                        <Button  Name="btnTransmitBillway"
 								     Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center"
-									 Click="btnTransmitBillway_Click" >传送路单</Button>
-						<StackPanel Orientation="Horizontal" Grid.Row="1">
-							<Button Height="150" Name="btnRegenerateBillway"  Margin="8,0,0,0"
+									 Click="btnTransmitLocalSessions_Click" >传送路单</Button>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                            <Button Height="150" Name="btnRegenerateBillway"  Margin="8,0,0,0"
 									Style="{StaticResource GreenButton}" FontSize="12"
-									Click="btnRegenerateBillway_Click"
+									Click="btnRegenerateCurrentSession_Click"
 									Content="重&#x0a;新&#x0a;生&#x0a;成&#x0a;本&#x0a;局&#x0a;路&#x0a;单">
-							</Button>
-							<Grid  Name="BigWaybill" Margin="8,0,0,0"
+                            </Button>
+                            <Grid  Name="gdBigWaybill" Margin="8,0,0,0"
 								   Width="286" Height="156">
-								<Grid.RowDefinitions>
-									<RowDefinition />
-									<RowDefinition />
-									<RowDefinition />
-									<RowDefinition />
-									<RowDefinition />
-									<RowDefinition />
-								</Grid.RowDefinitions>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
-								</Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
                                 <!--<Button Click="BigWaybillBlockClick" Style="{StaticResource BigWaybillButton}" DataContext="{Binding Waybill[0].WinnerSide}"></Button>-->
-							</Grid>
-						</StackPanel>
+                            </Grid>
+                        </StackPanel>
 
-						<StackPanel Grid.Column="2" Grid.Row="1">
-							<StackPanel.Resources>
-								<Style TargetType="Button" BasedOn="{StaticResource GoodButton}">
-									<Setter Property="Margin" Value="0,10,0,0"></Setter>
-				<Setter Property="MinHeight" Value="22"></Setter>
-								</Style>
-							</StackPanel.Resources>
-							<Button  Name="btnGeneralBillway" 
-									 Margin="0,5,0,0"
-									HorizontalAlignment="Center"
-									 Click="btnGeneralBillway_Click">生成路单</Button>
-							<Button  Name="btnImportBillway" 
+                        <StackPanel Grid.Column="2" 
+                                    Grid.Row="1">
+                            <StackPanel.Resources>
+                                <Style TargetType="Button" BasedOn="{StaticResource GoodButton}">
+                                    <Setter Property="Margin" Value="0,10,0,0"></Setter>
+                                    <Setter Property="MinHeight" Value="22"></Setter>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Button  Name="btnTransmitNextSession"  Margin="0,5,0,0"
 									 HorizontalAlignment="Center"
-									 Click="btnImportBillway_Click">导入路单</Button>
-							<Button  Name="btnInsertBillway" IsEnabled="False"
+									 Click="btnTransmitNextSession_Click">传送下局</Button>
+                            <Button  Name="btnImportBillway" 
 									 HorizontalAlignment="Center"
-									 Click="btnInsertBillway_Click">插入路单</Button>
-							<Button  Name="btnReplcBillway" 
+									 Click="btnImportLocalSessionFromFile_Click">导入路单</Button>
+                            <!--<Button  Name="btnReplcBillway" 
 									 HorizontalAlignment="Center"
-									 Click="btnReplcBillway_Click">替换路单</Button>
-							<Button  Name="btnSaveBillway" 
+									 Click="btnReplcBillway_Click">替换路单</Button>-->
+                            <Button  Name="btnSaveBillway" 
 									 HorizontalAlignment="Center"
-									 Click="btnSaveBillway_Click">保存路单</Button>
-						</StackPanel>
+									 Click="btnSaveLocalSessionsToFile_Click">保存路单</Button>
+                            <Button  Click="btnFrontCurSessionClick" Margin="0,46,0,0" HorizontalAlignment="Center"
+                                     >当前路单</Button>
+                        </StackPanel>
 
-						<StackPanel Grid.Row="2" Grid.Column="0" Name="spPageButtons"
+                        <StackPanel Grid.Row="2" Grid.Column="0" Name="spPageButtons"
 									Orientation="Horizontal"
 									Grid.ColumnSpan="3">
                             <Button Name="Homepage" IsEnabled="{Binding LocalSessionIndex}" Click="Homepage_Click" Width="45">首页</Button>
                             <Button Name="Prepage" IsEnabled="{Binding LocalSessionIndex}" Click="Prepage_Click" Width="45">上一页</Button>
-							<Button Name="Jumpto" Click="Jumpto_Click" Width="45" Margin="10,0,3,0">跳到</Button>
+                            <Button Name="Jumpto" Click="Jumpto_Click" Width="45" Margin="10,0,3,0">跳到</Button>
                             <TextBox Name="txtPageIndex" Text="{Binding localSessionStrIndex,Mode=OneWay}" Width="35" Height="20"></TextBox>
-							<TextBlock VerticalAlignment="Center" Margin="3,0,0,0">页</TextBlock>
+                            <TextBlock VerticalAlignment="Center" Margin="3,0,0,0">页</TextBlock>
                             <Button Name="btnNextpage" IsEnabled="{Binding LocalSessionIndex,Converter={StaticResource NextPageButtonEnableConverter}}" Click="btnNextpage_Click" Width="45" Margin="5,0,0,0">下一页</Button>
                             <Button Name="btnLastpage" IsEnabled="{Binding LocalSessionIndex,Converter={StaticResource NextPageButtonEnableConverter}}" Click="btnLastpage_Click" Width="45">尾页</Button>
-							<Button Name="btnImportFrontWaybill" Click="btnImportFrontWaybill_Click" 
+                            <Button Name="btnImportFrontWaybill" Click="btnImportFrontLocalSessions_Click" 
 									Margin="10,0,0,0"
 									Width="85"  >导入前台路单</Button>
-						</StackPanel>
-					</Grid>
-				</GroupBox>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
 
-				<GroupBox Header="强力控制" Grid.Column="1">
-					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="3*"></RowDefinition>
-							<RowDefinition Height="4*"></RowDefinition>
-						</Grid.RowDefinitions>
-                        <Grid Name="grdSmallWaybill" 
+                <GroupBox Header="强力控制" Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"></RowDefinition>
+                            <RowDefinition Height="4*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Name="gdSmallWaybill" 
                               Margin="3">
                             <Grid.RowDefinitions>
                                 <RowDefinition />
@@ -615,43 +624,30 @@
                             </Grid.ColumnDefinitions>
                         </Grid>
 
-                        <Grid Grid.Row="1">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="240*"/>
-								<ColumnDefinition Width="163*"/>
-							</Grid.ColumnDefinitions>
+                        <Grid Grid.Row="1" Name="gdNB">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="240*"/>
+                                <ColumnDefinition Width="163*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Name="gdRobot"></Grid>
+                            <Grid Name="gdKillBig" Grid.Column="1"></Grid>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
 
-						</Grid>
-					</Grid>
-				</GroupBox>
-
-				<GroupBox Header="功能菜单" Grid.Column="2" Grid.Row="1">
-					<Grid Name="grdFrontBet">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="175*"/>
-							<RowDefinition Height="46*"/>
-						</Grid.RowDefinitions>
-						<Grid Grid.Row="0" >
-							<Grid.RowDefinitions>
-								<RowDefinition Height="40*"/>
-								<RowDefinition Height="139*"/>
-							</Grid.RowDefinitions>
-							<TextBox Name="txtPwd" Margin="20,5,20,5"></TextBox>
-							<!--<Grid Grid.Row="1" Margin="20,0,20,0">
-								<Grid.RowDefinitions>
-									<RowDefinition />
-									<RowDefinition />
-									<RowDefinition />
-									<RowDefinition />
-								</Grid.RowDefinitions>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
-								</Grid.ColumnDefinitions>
-							</Grid>-->
-                            <Grid Grid.Row="1" Margin="20,0,20,0">
+                <GroupBox Header="功能菜单" Grid.Column="2" Grid.Row="1">
+                    <Grid Name="gdPwd">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="140*"/>
+                            <RowDefinition Height="46*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0"  Margin="0,3,0,3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="22"/>
+                                <RowDefinition Height="139"/>
+                            </Grid.RowDefinitions>
+                            <PasswordBox Background="Khaki" Name="txtPwd" Width="158" Height="22"  Margin="0"></PasswordBox>
+                            <Grid Grid.Row="1" Width="160"  Height="135" Margin="0,3,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
@@ -661,39 +657,22 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                     <ColumnDefinition />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <StackPanel >
-                                    <TextBlock Foreground="Red">庄总押:</TextBlock>
-                                    <TextBox Foreground="Red" IsEnabled="False" Text="{Binding DeskBanker}"></TextBox>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock Foreground="Green">和总押:</TextBlock>
-                                    <TextBox Foreground="Green" IsEnabled="False" Text="{Binding DeskTie}"></TextBox>
-                                </StackPanel>
-                                <StackPanel Grid.Column="2">
-                                    <TextBlock Foreground="Blue">闲总押:</TextBlock>
-                                    <TextBox Foreground="Blue" IsEnabled="False" Text="{Binding DeskPlayer}"></TextBox>
-                                </StackPanel>
-                                <StackPanel Grid.Row="1" Grid.Column="0">
-                                    <TextBlock >庄闲差值:</TextBlock>
-                                    <TextBox IsEnabled="False" Text="{Binding Differ}"></TextBox>
-                                </StackPanel>
-                                <StackPanel Grid.Row="1" Grid.Column="1">
-                                    <TextBlock >本场利润:</TextBlock>
-                                    <TextBox IsEnabled="False" Text="{Binding Profit}"></TextBox>
-                                </StackPanel>
-                                <StackPanel Grid.Row="1" Grid.Column="2">
-                                    <TextBlock >押分最多:</TextBlock>
-                                    <TextBox IsEnabled="False" Text="{Binding MostPlayer}"></TextBox>
-                                </StackPanel>
-                                <StackPanel Grid.Row="2" Grid.Column="0">
-                                    <TextBlock >桌面余分:</TextBlock>
-                                    <TextBox IsEnabled="False" Text="{Binding DeskScore}"></TextBox>
-                                </StackPanel>
-                                <Button Background="MediumSeaGreen" Grid.Row="2"  Grid.Column="2"
-                                        Name="btnBetRecord" Click="btnBetRecord_Click">押分记录</Button>
-                            </Grid> 
-						</Grid>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Blue"   Grid.Row="0" Grid.Column="0" Background="AliceBlue"   Click="btnPwdNum_Click"  Tag="1">1</Button>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Blue"   Grid.Row="0" Grid.Column="1" Background="AliceBlue"   Click="btnPwdNum_Click"  Tag="2">2</Button>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Blue"   Grid.Row="0" Grid.Column="2" Background="AliceBlue"   Click="btnPwdNum_Click"  Tag="3">3</Button>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Blue"   Grid.Row="0" Grid.Column="3" Background="AliceBlue"   Click="btnPwdNum_Click"  Tag="4">4</Button>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Blue"   Grid.Row="1" Grid.Column="0" Background="AliceBlue"   Click="btnPwdNum_Click"  Tag="5">5</Button>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Blue"   Grid.Row="1" Grid.Column="1" Background="AliceBlue"   Click="btnPwdNum_Click"  Tag="6">6</Button>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Blue"   Grid.Row="1" Grid.Column="2" Background="AliceBlue"   Click="btnPwdNum_Click"  Tag="7">7</Button>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Blue"   Grid.Row="1" Grid.Column="3" Background="AliceBlue"   Click="btnPwdNum_Click"  Tag="8">8</Button>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Blue"   Grid.Row="2" Grid.Column="0" Background="AliceBlue"   Click="btnPwdNum_Click"  Tag="9">9</Button>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Blue"   Grid.Row="2" Grid.Column="1" Background="AliceBlue"   Click="btnPwdNum_Click"  Tag="0">0</Button>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Red"  Grid.Row="2" Grid.Column="2" Background="AliceBlue" Click="btnDeletePwd"  Tag="0">删除</Button>
+                                <Button Style="{StaticResource ColorButton}" Foreground="Green"  Grid.Row="2" Grid.Column="3" Background="AliceBlue"   Click="btnConfirmPwd"  Tag="0">确定</Button>
+                            </Grid>
+                        </Grid>
 
                         <StackPanel Orientation="Vertical" Grid.Row="1">
                             <TextBox Name="txtServerIP" Margin="20,5,20,5">192.168.0.101</TextBox>
@@ -703,8 +682,8 @@
 								Name="btnDisconnect" Click="btnDisconnect_Click" Visibility="Hidden">断开连接</Button>
                         </StackPanel>
                     </Grid>
-				</GroupBox>
-			</Grid>
-		</Grid>
-	</Grid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+    </Grid>
 </Window>

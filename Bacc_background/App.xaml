@@ -14,5 +14,6 @@
         <local:FrontWayBillBackgroundConverter x:Key="FrontWayBillBackgroundConverter"></local:FrontWayBillBackgroundConverter>
         <local:FrontWayBillVisibleConverter x:Key="FrontWayBillVisibleConverter"></local:FrontWayBillVisibleConverter>
         <local:FrontWayBillContentConverter x:Key="FrontWayBillContentConverter"></local:FrontWayBillContentConverter>
+        <local:BetRecordSmallContentConverter x:Key="BetRecordSmallContentConverter"></local:BetRecordSmallContentConverter>
     </Application.Resources>
 </Application>

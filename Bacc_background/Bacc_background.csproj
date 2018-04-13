@@ -38,6 +38,7 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PropertyChanged2, Version=2.1.4.3, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged2.Fody.2.1.4.3\lib\portable-net40+sl50+win+wpa81+wp80\PropertyChanged2.dll</HintPath>
       <Private>False</Private>
@@ -49,6 +50,7 @@
       <HintPath>..\packages\SuperSocket.ProtoBase.1.7.0.17\lib\net40\SuperSocket.ProtoBase.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
@@ -68,8 +70,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BetRecord.xaml.cs">
+      <DependentUpon>BetRecord.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataHandler.cs" />
+    <Compile Include="Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Desk.cs" />
     <Compile Include="Model\Player.cs" />
+    <Compile Include="Utils\AESEncrypt.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Model\Card.cs" />
     <Compile Include="Model\Deck.cs" />
@@ -80,7 +90,19 @@
     <Compile Include="SuperClient.cs" />
     <Compile Include="Model\Type.cs" />
     <Compile Include="Utils\ObservableDictionary.cs" />
+    <Page Include="BetRecord.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataGridStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="InputServerIp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,6 +146,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -320,15 +343,15 @@
     <Content Include="Img\desk.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Img\desk2.bmp" />
     <Content Include="Img\downhead.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Img\hidebar.bmp">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Img\hidebar.bmp" />
     <Content Include="Img\opencard.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Img\send.bmp" />
     <Content Include="Img\throw1.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
