@@ -5,12 +5,18 @@ using System.Collections;
 
 namespace Bacc_front
 {
+    public class LocalSession
+    {
+        public int Id { get; set; }
+        public int SessionIndex { get; set; }
+        public string JsonSession { get; set; }
+    }
     /// <summary>
     /// 后台累积押分记录
     /// </summary>
     public class BackBetRecord
     {
-        public int PlayerId { get; set; }
+        public string PlayerId { get; set; }
         public int BetScore { get; set; }
         public int Profit { get; set; }
         public int DingFen { get; set; }
@@ -135,25 +141,22 @@ namespace Bacc_front
     {
         //Image = 1,
         Login = 1,
-
-
         /// <summary>
         /// 将后台之前传送到前台路单发送给后台
         /// </summary>
         ImportFrontLocalSessions,
-
         /// <summary>
         /// 前台导入后台传送来的全部路单
         /// </summary>
         ImportBack,
         ImportBackOK,
         ImportBackFail,
-
         /// <summary>
         /// 前台导入后台传送来的下一局路单
         /// </summary>
         ImportBackNextSession,
-        ImportBackNextSessionOK,
+        ImportBackNextSessionOnCurrentSession,
+        ImportBackNextSessionOnNextSession,
         ImportBackNextSessionFail,
 
         /// <summary>
@@ -162,10 +165,15 @@ namespace Bacc_front
         SendFrontCurSession,
 
         SendFrontPassword,
+        ModifyFrontPassword,
+        ModifyFrontPasswordOK,
         SendFrontSetting,
+        ModifyFrontSetting,
+        ModifyFrontSettingOK,
         SendFrontLiveData,
         SendFrontSummationBetRecord,
-
+        SendFrontAccount,
+        ClearFrontAccount,
         /// <summary>
         /// 将前台保存的押分记录的局数发送到后台
         /// </summary>
@@ -174,5 +182,19 @@ namespace Bacc_front
         /// 将某局的押分记录传送至后台
         /// </summary>
         SendFrontBetRecord,
+        //SaveFrontBetRecord,
+
+        ClearFrontLocalSessions,
+
+        SetWinner,
+        KillBig,
+        ExtraWaybill,
+
+        LockFront,
+        LockFrontOK,
+        UnlockFront,
+        UnlockFrontOK,
+        ShutdownFront,
+        BreakdownFront,
     }
 }

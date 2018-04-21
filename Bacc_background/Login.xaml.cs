@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Windows;
@@ -14,6 +15,7 @@ namespace Bacc_background
     public partial class Login : Window
     {
         public string Password { get; set; }
+        public string Host { get; set; }
         public static Login Instance { get; set; }
         public bool IsSuccessConnect = false;
         public Login()
@@ -24,6 +26,7 @@ namespace Bacc_background
 
             var hosts = JsonConvert.DeserializeObject<ObservableCollection<IpModel>>(Settings.Default.Hosts) ?? new ObservableCollection<IpModel>();
             cbIps.ItemsSource = hosts;
+            cbIps.SelectedIndex = 0;
         }
 
         private void CbIps_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -34,6 +37,7 @@ namespace Bacc_background
             }
             var host = cbIps.SelectedItem as IpModel;
             txtRemark.Text = host.Remark;
+            txtLoginPwd.Text = host.Password;
             btnConnect.IsEnabled = true;
         }
 
@@ -68,14 +72,15 @@ namespace Bacc_background
                 Password = txtLoginPwd.Text;
 
                 var host_ip = IPAddress.Parse(host.Host);
+                Host = host.Host;
                 MainWindow.Instance.SSClient.Connect(host_ip, MainWindow.port);
                 btnConnect.IsEnabled = false;
             }
             catch (Exception ex)
             {
-                if (MainWindow.Instance. SSClient.IsConnected)
+                if (MainWindow.Instance.SSClient.IsConnected)
                 {
-                    MainWindow.Instance. SSClient.Close();
+                    MainWindow.Instance.SSClient.Close();
                 }
                 MessageBox.Show("连接出错，检查网络或密码");
                 btnConnect.IsEnabled = true;
@@ -99,7 +104,31 @@ namespace Bacc_background
             Settings.Default.Hosts = JsonConvert.SerializeObject(hosts);
             Settings.Default.Save();
             cbIps.ItemsSource = hosts;
-            cbIps.SelectedIndex = 0;
+            cbIps.SelectedItem = new_host;
+        }
+        public void SaveCorrectPwd()
+        {
+            var hosts = JsonConvert.DeserializeObject<ObservableCollection<IpModel>>(Settings.Default.Hosts) ?? new ObservableCollection<IpModel>();
+            var new_host = new IpModel
+            {
+                Password = Password,
+                Host = Host,
+                Remark = txtRemark.Text,
+            };
+            try
+            {
+                var hhh = hosts.FirstOrDefault(h => h.Host == Host);
+                if (hhh != null)
+                {
+                    hosts.Remove(hhh);
+                }
+                hosts.Insert(0,new_host);
+                Settings.Default.Hosts = JsonConvert.SerializeObject(hosts);
+                Settings.Default.Save();
+            }
+            catch (Exception)
+            {
+            }
         }
     }
     public class IpModel

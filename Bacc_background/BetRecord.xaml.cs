@@ -32,7 +32,7 @@ namespace Bacc_front
             }
             RecordsInSession = records;
             SessionIds = new List<int>(ids.Select(i => i + 1).ToList());
-            this.Dispatcher.Invoke(new Action(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
 
                 cmbSessionStrIndex.ItemsSource = SessionIds;
@@ -50,9 +50,9 @@ namespace Bacc_front
         {
             this.Dispatcher.Invoke(new Action(() =>
             {
-            RecordsInSession = list;
-            //cmbSessionStrIndex.SelectedItem = RecordsInSession[0].SessionIndex + 1;
-            SetChecked();
+                RecordsInSession = list;
+                //cmbSessionStrIndex.SelectedItem = RecordsInSession[0].SessionIndex + 1;
+                SetChecked();
             }));
         }
         public List<int> SessionIds = new List<int>();
@@ -285,5 +285,15 @@ namespace Bacc_front
             MainWindow.Instance.SSClient.SendCommand(RemoteCommand.SendFrontBetRecord, id);
         }
 
+        private void btnPreRecord_Click(object sender, RoutedEventArgs e)
+        {
+            cmbSessionStrIndex.SelectedIndex = cmbSessionStrIndex.SelectedIndex - 1 < 0 ? 0 : cmbSessionStrIndex.SelectedIndex - 1;
+        }
+
+        private void btnNextRecord_Click(object sender, RoutedEventArgs e)
+        {
+            var list =(List<int>) cmbSessionStrIndex.ItemsSource;
+            cmbSessionStrIndex.SelectedIndex = cmbSessionStrIndex.SelectedIndex + 1 >= list.Count? 0 : cmbSessionStrIndex.SelectedIndex + 1;
+        }
     }
 }

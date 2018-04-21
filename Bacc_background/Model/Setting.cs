@@ -1,5 +1,6 @@
 ﻿using Bacc_background.Properties;
 using Newtonsoft.Json;
+using PropertyChanged;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,33 +9,35 @@ using WsUtils;
 
 namespace Bacc_front
 {
-	public class SettingItem
-	{
-		//显示在菜单上的描述
-		public int SelectedIndex { get; set; }
+    public class SettingItem
+    {
+        //显示在菜单上的描述
+        public int SelectedIndex { get; set; }
 
-		public SettingItemType Type { get; set; }
-		//item的所有可选值
-		public string[] Values { get; set; }
-	}
-	public enum PlayType
-	{
-		single,
-		two
-	}
+        public SettingItemType Type { get; set; }
+        //item的所有可选值
+        public string[] Values { get; set; }
+    }
+    public enum PlayType
+    {
+        single,
+        two
+    }
     public enum SettingItemType
     {
         integer,
         strings,
     }
 
+    [ImplementPropertyChanged]
     public class Setting
-	{
+    {
         public const int max_session_num = 1000;
         public const string waybill_pwd = "33333";
         public const string front_setting_pwd = "55555";
         public const string bet_record_pwd = "66666";
-        public const string robot_pwd= "77777";
+        public const string robot_pwd = "77777";
+        public const string front_account_pwd = "88888";
         public const string kill_big_pwd = "99999";
         public const string hide_pwd = "00000";
         /// <summary>
@@ -81,7 +84,7 @@ namespace Bacc_front
         /// <summary>
         /// 牌局设置
         /// </summary>
-        public Dictionary<string, SettingItem> game_setting = new Dictionary<string, SettingItem>();
+        public Dictionary<string, SettingItem> game_setting { get; set; }
         private static Setting instance;
 
         public PlayType play_type;
@@ -104,11 +107,12 @@ namespace Bacc_front
             {
                 //if (!Settings.Default._isGameInited)
                 //{
-                    InitGameSetting();
-                    //Settings.Default.GameSetting = JsonConvert.SerializeObject(game_setting);
-                    //Settings.Default.CurrentSessionIndex = -1;
-                    //Settings.Default._isGameInited = true;
-                    //Settings.Default.Save();
+                game_setting = new Dictionary<string, SettingItem>();
+                InitGameSetting();
+                //Settings.Default.GameSetting = JsonConvert.SerializeObject(game_setting);
+                //Settings.Default.CurrentSessionIndex = -1;
+                //Settings.Default._isGameInited = true;
+                //Settings.Default.Save();
                 //}
                 InitPassward();
                 SetGameSetting();

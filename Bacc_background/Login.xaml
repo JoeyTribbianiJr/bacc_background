@@ -31,11 +31,11 @@
         </Grid.ColumnDefinitions>
         <StackPanel Margin="20,5,20,0"  Orientation="Horizontal">
             <TextBlock Height="20" Width="75" TextAlignment="Right" FontSize="16" >主机列表:</TextBlock>
-            <ComboBox Margin="5,0,5,0" SelectedIndex="0"  DisplayMemberPath="Host" Width="160" Name="cbIps"></ComboBox>
+            <ComboBox Margin="5,0,5,0"   DisplayMemberPath="Host" Width="160" Name="cbIps"></ComboBox>
         </StackPanel>
         <StackPanel Margin="20,5,20,0" Grid.Row="1" Orientation="Horizontal">
             <TextBlock Height="20" Width="75" TextAlignment="Right" FontSize="16" >密码:</TextBlock>
-            <TextBox Name="txtLoginPwd" Margin="5,0,5,0" Width="160" >11111111</TextBox>
+            <TextBox Name="txtLoginPwd" Margin="5,0,5,0" Width="160" ></TextBox>
         </StackPanel>
         <StackPanel Margin="20,5,20,0" Grid.Row="2" Orientation="Horizontal">
             <TextBlock Height="20" Width="75" TextAlignment="Right" FontSize="16" >备注:</TextBlock>

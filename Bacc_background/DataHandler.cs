@@ -22,7 +22,7 @@ namespace Bacc_background
             {
                 MainWindow.Instance.BetRecordDataFromFront.Add(new BackBetRecord()
                 {
-                    PlayerId = p.Id,
+                    PlayerId = p.Id.ToString(),
                     BetScore = 0,
                     DingFen = 0,
                     Profit = 0,

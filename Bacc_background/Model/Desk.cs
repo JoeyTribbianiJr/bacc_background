@@ -171,7 +171,7 @@ namespace Bacc_front
         }
         public int GetCardValue(Card card)
         {
-            var weight = (int)card.GetCardWeight;
+            var weight = (int)card.Weight;
             var singleDouble = _setting._single_double;
             if (singleDouble == "单张牌")
             {
@@ -179,7 +179,7 @@ namespace Bacc_front
                 {
                     weight = 14;
                 }
-                weight = (int)card.GetCardSuit * 14 + weight;
+                weight = (int)card.Color * 14 + weight;
             }
             else
             {
@@ -419,7 +419,7 @@ namespace Bacc_front
                 case WinnerEnum.banker:
                     return (player + tie - (int)Math.Ceiling(BANKER_ODDS * banker));
                 case WinnerEnum.tie:
-                    return player + banker - (int)Math.Ceiling(TIE_ODDS * tie);
+                    return -(int)Math.Ceiling(TIE_ODDS * tie);
                 case WinnerEnum.player:
                     return banker + tie - (int)Math.Ceiling(PLAYER_ODDS * player);
                 default:

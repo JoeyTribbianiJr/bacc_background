@@ -42,10 +42,10 @@
         </Setter>
     </Style>
     <Style x:Key="ChipButton" TargetType="Button">
-        <Setter Property="Width" Value="70"/>
-        <Setter Property="Height" Value="70"/>
+        <Setter Property="Width" Value="90"/>
+        <Setter Property="Height" Value="90"/>
         <Setter Property="Foreground" Value="Black"/>
-        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontSize" Value="24" />
         <Setter Property="FontStretch" Value="Medium" />
         <Setter Property="FontWeight" Value="Heavy" />
 
@@ -86,9 +86,9 @@
     </Style>
     <Style x:Key="BetChipButton" TargetType="Button">
         <Setter Property="Width" Value="37"/>
-        <Setter Property="Height" Value="35"/>
+        <Setter Property="Height" Value="37"/>
         <Setter Property="Foreground" Value="Black"/>
-        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontSize" Value="16" />
         <Setter Property="FontStretch" Value="Medium" />
         <Setter Property="FontWeight" Value="Black" />
 
@@ -155,10 +155,10 @@
     </Style>
     <!--小路单按钮样式-->
     <Style x:Key="SmallWaybillButton" TargetType="Button">
-        <Setter Property="Width" Value="7"></Setter>
-        <Setter Property="Height" Value="7"></Setter>
+        <Setter Property="Width" Value="9"></Setter>
+        <Setter Property="Height" Value="9"></Setter>
         <Setter Property="FontFamily" Value="宋体"></Setter>
-        <Setter Property="FontSize" Value="17"></Setter>
+        <Setter Property="FontSize" Value="1"></Setter>
         <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
         <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
@@ -171,6 +171,20 @@
         <Setter Property="Visibility" >
             <Setter.Value>
                 <Binding Path="." Converter="{StaticResource WayBillVisibleConverter}" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}" CornerRadius="0" 
+                                BorderThickness="0">
+                            <ContentPresenter Name="BtnContent"
+											  HorizontalAlignment="Center"
+											  Content="{TemplateBinding Content}"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
@@ -428,15 +442,7 @@
                 <Binding Path="." Converter="{StaticResource WayBillVisibleConverter}"></Binding>
             </Setter.Value>
         </Setter>
-        <!--<Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="Chrome" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>-->
+        
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -457,11 +463,11 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <!--<Style.Triggers>
+        <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Button.Opacity" Value="0.5" />
             </Trigger>
-        </Style.Triggers>-->
+        </Style.Triggers>
     </Style>
     <Style x:Key="ColorButton" TargetType="Button">
         <Setter Property="Foreground" Value="Black"/>
@@ -586,7 +592,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <Style x:Key="BetRecordSmallWaybillButton" TargetType="Button">
         <Setter Property="Width" Value="16"></Setter>
         <Setter Property="Height" Value="16"></Setter>

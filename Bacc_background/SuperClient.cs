@@ -2,10 +2,12 @@
 using SuperSocket.ClientEngine;
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using WsUtils;
 
 namespace Bacc_front
 {
@@ -14,13 +16,9 @@ namespace Bacc_front
         //public override int ReceiveBufferSize { get => base.ReceiveBufferSize; set => base.ReceiveBufferSize = value; }
         public SuperClient()
         {
-            SendingQueueSize = 4096 * 1024;
-            
-            ReceiveBufferSize = 1024 * 4096;
+            ReceiveBufferSize = 1024 * 1024 * 4;
             // 连接断开事件
             Closed += Client_Closed;
-            // 收到服务器数据事件
-            //DataReceived += Client_DataReceived;
             // 连接到服务器事件
             Connected += Client_Connected;
             // 发生错误的处理
@@ -29,7 +27,6 @@ namespace Bacc_front
         public void Client_Error(object sender, SuperSocket.ClientEngine.ErrorEventArgs e)
         {
             MessageBox.Show(e.Exception.Message);
-            //Console.WriteLine(e.Exception.Message);
         }
         void Client_Connected(object sender, EventArgs e)
         {
@@ -39,7 +36,6 @@ namespace Bacc_front
             {
                 MainWindow.Instance.txtServerIP.Text = HostName;
             }));
-            //MessageBox.Show(Client.RemoteEndPoint + "：连接成功");
         }
 
         void Client_Closed(object sender, EventArgs e)
@@ -47,6 +43,7 @@ namespace Bacc_front
             MessageBox.Show("连接关闭:");
             MainWindow.Instance.Dispatcher.Invoke(new Action(() =>
             {
+                MainWindow.Instance.btnTransmitBillway.IsEnabled = true;
                 Login.Instance.btnConnect.IsEnabled = true;
                 MainWindow.Instance.btnConnect.Visibility = Visibility.Visible;
                 MainWindow.Instance.btnDisconnect.Visibility = Visibility.Hidden;
@@ -87,7 +84,6 @@ namespace Bacc_front
         }
         public void SendCommand(RemoteCommand cmd, object obj)
         {
-
             var type = ((int)cmd).ToString().PadLeft(2, '0');
             var data = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
             if (IsConnected)
@@ -108,6 +104,54 @@ namespace Bacc_front
                 MessageBox.Show("未建立连接");
             }
         }
+
+        public void SendCompressedCommand(RemoteCommand cmd, object obj)
+        {
+            var type = ((int)cmd).ToString().PadLeft(2, '0');
+            var data0 = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            var data = CompressHelper.Compress(data0);
+            if (IsConnected)
+            {
+                byte[] arr = Encoding.UTF8.GetBytes(string.Format("{0} {1}\r\n", type, data));
+                try
+                {
+                    //Send(arr, 0, arr.Length);
+                    Send(arr, 0, arr.Length);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("SendCommand函数出错");
+                }
+            }
+            else
+            {
+                MessageBox.Show("未建立连接");
+            }
+        }
+
+        //public void SendCompressedCommand(RemoteCommand cmd, string data_str)
+        //{
+        //    var type = ((int)cmd).ToString().PadLeft(2, '0');
+        //    //var data0 = Newtonsoft.Json.JsonConvert.SerializeObject(data_str);
+        //    var data = Compress(data_str);
+        //    if (IsConnected)
+        //    {
+        //        byte[] arr = Encoding.UTF8.GetBytes(string.Format("{0} {1}\r\n", type, data));
+        //        try
+        //        {
+        //            //Send(arr, 0, arr.Length);
+        //            Send(arr, 0, arr.Length);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show("SendCommand函数出错");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("未建立连接");
+        //    }
+        //}
 
     }
 
